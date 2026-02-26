@@ -9,7 +9,7 @@
         * { box-sizing: border-box; }
         body {
             font-family: system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #D4B896 0%, #A0826D 100%);
             margin: 0;
             padding: 20px;
             min-height: 100vh;
@@ -23,7 +23,7 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #C9A882 0%, #8B6B4A 100%);
             color: white;
             padding: 25px;
             text-align: center;
@@ -33,7 +33,7 @@
 
 ```
     .cycle-banner {
-        background: #1a202c;
+        background: #3D2B1A;
         color: white;
         padding: 14px 25px;
         display: flex;
@@ -42,10 +42,10 @@
         flex-wrap: wrap;
         gap: 10px;
     }
-    .cycle-label { font-size: 12px; color: #a0aec0; text-transform: uppercase; letter-spacing: 1px; }
+    .cycle-label { font-size: 12px; color: #D4B896; text-transform: uppercase; letter-spacing: 1px; }
     .cycle-week-display { font-size: 20px; font-weight: 700; }
-    .cycle-week-display.deload { color: #68d391; }
-    .cycle-week-display.accumulation { color: #90cdf4; }
+    .cycle-week-display.deload { color: #A8C87A; }
+    .cycle-week-display.accumulation { color: #E8C99A; }
     .cycle-pips { display: flex; gap: 8px; align-items: center; }
     .pip {
         width: 28px; height: 28px; border-radius: 50%;
@@ -53,28 +53,28 @@
         font-size: 11px; font-weight: 700; cursor: pointer;
         transition: all 0.2s;
     }
-    .pip.acc { background: #2a4a6b; color: #90cdf4; }
-    .pip.acc.current { background: #4a90d9; color: white; transform: scale(1.2); }
-    .pip.dl { background: #1a3d2b; color: #68d391; }
-    .pip.dl.current { background: #38a169; color: white; transform: scale(1.2); }
+    .pip.acc { background: #7A5C3A; color: #F0DEC0; }
+    .pip.acc.current { background: #C9A882; color: white; transform: scale(1.2); }
+    .pip.dl { background: #2d3a1e; color: #A8C87A; }
+    .pip.dl.current { background: #6B8F3E; color: white; transform: scale(1.2); }
     .cycle-controls { display: flex; gap: 8px; }
     .cycle-btn {
         padding: 6px 14px; border-radius: 6px; border: none; cursor: pointer;
         font-size: 13px; font-weight: 600;
     }
-    .cycle-btn.prev { background: #2d3748; color: #a0aec0; }
-    .cycle-btn.next { background: #667eea; color: white; }
+    .cycle-btn.prev { background: #5C4030; color: #E8D0B0; }
+    .cycle-btn.next { background: #C9A882; color: white; }
 
-    .tabs { display: flex; background: #f7fafc; overflow-x: auto; }
+    .tabs { display: flex; background: #F5EDE0; overflow-x: auto; }
     .tab {
         flex: 1; min-width: 80px; padding: 14px 8px;
         text-align: center; cursor: pointer; font-weight: 600;
         border: none; background: transparent; color: #718096;
         font-size: 13px; white-space: nowrap;
     }
-    .tab.active { background: white; color: #667eea; border-bottom: 3px solid #667eea; }
+    .tab.active { background: white; color: #A07850; border-bottom: 3px solid #C9A882; }
 
-    .content { padding: 25px; }
+    .content { padding: 25px; background: #FDFAF5; }
     .page { display: none; }
     .page.active { display: block; }
 
@@ -91,41 +91,41 @@
         transition: all 0.2s; line-height: 1.4;
     }
     .day-btn.active {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #C9A882 0%, #8B6B4A 100%);
         color: white; border-color: transparent;
     }
-    .day-btn.rest-day { border-color: #c6f6d5; color: #276749; }
+    .day-btn.rest-day { border-color: #C8D8A8; color: #4A6B2E; }
     .day-btn.rest-day.active {
-        background: linear-gradient(135deg, #38a169 0%, #276749 100%);
+        background: linear-gradient(135deg, #6B8F3E 0%, #4A6B2E 100%);
         color: white;
     }
     .workout { display: none; }
     .workout.active { display: block; }
 
     .exercise {
-        background: #f7fafc; padding: 15px; margin: 10px 0;
-        border-radius: 8px; border-left: 4px solid #667eea;
+        background: #FAF5EE; padding: 15px; margin: 10px 0;
+        border-radius: 8px; border-left: 4px solid #D4B896;
     }
     .info-box {
-        background: #ebf8ff; padding: 15px; margin: 15px 0;
-        border-radius: 8px; border-left: 4px solid #4299e1;
+        background: #FAF3E8; padding: 15px; margin: 15px 0;
+        border-radius: 8px; border-left: 4px solid #D4B896;
     }
     .rest-box {
-        background: #f0fff4; padding: 15px; margin: 15px 0;
-        border-radius: 8px; border-left: 4px solid #38a169;
+        background: #F0F5E8; padding: 15px; margin: 15px 0;
+        border-radius: 8px; border-left: 4px solid #6B8F3E;
     }
     .schedule-note {
-        background: #fffbeb; border-left: 4px solid #f6ad55;
+        background: #FAF0E0; border-left: 4px solid #D4B896;
         padding: 12px 15px; border-radius: 8px; margin: 15px 0; font-size: 14px;
     }
     .tag {
         display: inline-block; padding: 3px 10px; border-radius: 20px;
         font-size: 12px; font-weight: 600; margin-left: 8px; vertical-align: middle;
     }
-    .tag-strength { background: #e9d8fd; color: #553c9a; }
-    .tag-martial { background: #fed7e2; color: #97266d; }
-    .tag-cardio { background: #bee3f8; color: #2a69ac; }
-    .tag-rest { background: #c6f6d5; color: #276749; }
+    .tag-strength { background: #EDE0CC; color: #7A5C3A; }
+    .tag-martial { background: #E8C9A8; color: #7A3A20; }
+    .tag-cardio { background: #E8D8C0; color: #5C4A2A; }
+    .tag-rest { background: #D8EAB8; color: #3A5A1E; }
 
     .log-form {
         display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 12px;
@@ -134,9 +134,9 @@
         padding: 8px 10px; border: 2px solid #e2e8f0; border-radius: 6px;
         font-size: 14px; flex: 1; min-width: 90px;
     }
-    .log-form input:focus, .log-form select:focus { outline: none; border-color: #667eea; }
+    .log-form input:focus, .log-form select:focus { outline: none; border-color: #C9A882; }
     .log-btn {
-        padding: 8px 18px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 8px 18px; background: linear-gradient(135deg, #C9A882 0%, #8B6B4A 100%);
         color: white; border: none; border-radius: 6px; cursor: pointer;
         font-weight: 600; font-size: 14px; white-space: nowrap;
     }
@@ -144,7 +144,7 @@
 
     .log-entry {
         display: flex; justify-content: space-between; align-items: center;
-        padding: 8px 12px; background: #f7fafc; border-radius: 6px; margin: 4px 0;
+        padding: 8px 12px; background: #FAF5EE; border-radius: 6px; margin: 4px 0;
         font-size: 13px;
     }
     .log-entry .entry-date { color: #718096; min-width: 60px; }
@@ -159,12 +159,12 @@
         display: flex; gap: 15px; flex-wrap: wrap; margin: 12px 0;
     }
     .stat-box {
-        background: #f7fafc; border-radius: 8px; padding: 12px 16px;
+        background: #FAF5EE; border-radius: 8px; padding: 12px 16px;
         text-align: center; flex: 1; min-width: 80px;
     }
     .stat-box .slabel { font-size: 11px; color: #a0aec0; text-transform: uppercase; letter-spacing: 0.5px; }
     .stat-box .sval { font-size: 20px; font-weight: 700; color: #2d3748; margin-top: 2px; }
-    .stat-box .sval.down { color: #38a169; }
+    .stat-box .sval.down { color: #6B8F3E; }
     .stat-box .sval.up { color: #e53e3e; }
 
     canvas { width: 100% !important; border-radius: 8px; display: block; margin: 10px 0; }
@@ -176,10 +176,10 @@
         margin-bottom: 10px;
     }
     .mw-card {
-        background: #f7fafc;
+        background: #FAF5EE;
         border-radius: 10px;
         padding: 14px;
-        border-left: 4px solid #667eea;
+        border-left: 4px solid #D4B896;
         transition: transform 0.15s;
     }
     .mw-card:hover { transform: translateY(-2px); }
@@ -188,7 +188,7 @@
     .mw-card .mw-weight { font-size: 24px; font-weight: 800; color: #2d3748; line-height: 1; }
     .mw-card .mw-weight.empty { font-size: 16px; color: #cbd5e0; font-weight: 400; }
     .mw-card .mw-meta { font-size: 11px; color: #a0aec0; margin-top: 4px; }
-        display: inline-block; background: #faf089; color: #744210;
+        display: inline-block; background: #EDD9B0; color: #7A5C3A;
         padding: 1px 7px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-left: 6px;
     }
 
@@ -232,6 +232,7 @@
     <button class="tab" onclick="showTab('exlog',event)">Exercise Log</button>
     <button class="tab" onclick="showTab('nutrition',event)">Nutrition</button>
     <button class="tab" onclick="showTab('progress',event)">Progress</button>
+    <button class="tab" onclick="showTab('photos',event)">Photos</button>
 </div>
 
 <div class="content">
@@ -404,24 +405,46 @@
         </div>
         <canvas id="exChart" height="140"></canvas>
         <div id="exHistory"></div>
+
+        <h3 style="margin-top:30px; color:#8B6B4A; border-bottom:2px solid #D4B896; padding-bottom:6px;">All-Time PR Feed</h3>
+        <p style="color:#A07850; font-size:13px; margin-top:-4px;">Best weight ever logged per exercise.</p>
+        <div id="prFeed"></div>
     </div>
 
     <!-- MY WEIGHTS -->
     <div id="myweights" class="page">
         <h2>My Current Weights</h2>
         <p style="color:#718096; font-size:14px; margin-top:-8px;">Most recent logged weight per exercise. Updates automatically as you log in Exercise Log.</p>
-        <h3 style="color:#553c9a; border-bottom:2px solid #e9d8fd; padding-bottom:6px;">Lower Body — Monday (Glute Focus)</h3>
+        <h3 style="color:#8B6B4A; border-bottom:2px solid #D4B896; padding-bottom:6px;">Lower Body — Monday (Glute Focus)</h3>
         <div id="mw-lower-mon" class="mw-grid"></div>
-        <h3 style="color:#553c9a; border-bottom:2px solid #e9d8fd; padding-bottom:6px; margin-top:20px;">Lower Body — Thursday (Hamstring Focus)</h3>
+        <h3 style="color:#8B6B4A; border-bottom:2px solid #D4B896; padding-bottom:6px; margin-top:20px;">Lower Body — Thursday (Hamstring Focus)</h3>
         <div id="mw-lower-thu" class="mw-grid"></div>
-        <h3 style="color:#553c9a; border-bottom:2px solid #e9d8fd; padding-bottom:6px; margin-top:20px;">Upper Body</h3>
+        <h3 style="color:#8B6B4A; border-bottom:2px solid #D4B896; padding-bottom:6px; margin-top:20px;">Upper Body</h3>
         <div id="mw-upper" class="mw-grid"></div>
         <div class="schedule-note" style="margin-top:20px;">Tap any exercise in the <strong>Exercise Log</strong> tab to view full progression history.</div>
     </div>
 
     <!-- NUTRITION -->
     <div id="nutrition" class="page">
-        <h2>Pre-Workout Fuel (60–90 min before)</h2>
+
+        <!-- HYDRATION TRACKER -->
+        <h2>Hydration Tracker</h2>
+        <p style="color:#8B6B4A; font-size:14px; margin-top:-8px;">Goal: 1 gallon = 16 cups (8 oz each). Resets daily.</p>
+        <div style="text-align:center; margin: 20px 0;">
+            <div id="hydrationCount" style="font-size:52px; font-weight:800; color:#C9A882; line-height:1;">0</div>
+            <div style="font-size:14px; color:#A07850; margin-top:4px;">of 16 cups</div>
+            <div id="hydrationBar" style="width:100%; height:16px; background:#EDE0CC; border-radius:20px; margin:14px 0; overflow:hidden;">
+                <div id="hydrationFill" style="height:100%; width:0%; background:linear-gradient(90deg,#C9A882,#8B6B4A); border-radius:20px; transition:width 0.4s;"></div>
+            </div>
+            <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:10px;">
+                <button class="log-btn" onclick="addWater(1)" style="font-size:18px; padding:12px 24px;">+ 8 oz</button>
+                <button class="log-btn" onclick="addWater(2)" style="font-size:15px; padding:12px 18px; background:linear-gradient(135deg,#A07850,#7A5C3A);">+ 16 oz</button>
+                <button class="log-btn" onclick="addWater(-1)" style="font-size:15px; padding:12px 18px; background:#C4A882; color:#3D2B1A;">Undo</button>
+            </div>
+            <div id="hydrationMsg" style="margin-top:12px; font-size:14px; font-weight:600; color:#6B8F3E;"></div>
+        </div>
+
+        <h2 style="margin-top:25px;">Pre-Workout Fuel (60–90 min before)</h2>
         <div class="exercise"><strong>Rice Cakes + Almond Butter:</strong> 40g carbs, 8g protein</div>
         <div class="exercise"><strong>Medjool Dates:</strong> 45g carbs, 2g protein — 4–5 dates. Fast energy.</div>
         <div class="exercise"><strong>Overnight Oats:</strong> 40g carbs, 15g protein — 1/2 cup oats + protein powder</div>
@@ -450,6 +473,36 @@
         <div class="exercise"><strong>Month 9–10:</strong> Hip Thrusts 225–255 lbs — <strong>SNATCHED ACHIEVED</strong></div>
         <div class="schedule-note"><strong>Muay Thai Flag:</strong> When transitioning to advanced classes, reassess Monday lower body spacing — Tuesday/Wednesday leg stimulus increases significantly.</div>
         <div class="info-box"><strong>Recovery:</strong> Oura Ring — Post-CISSP closeout (Q1 2026). Adds HRV, sleep staging, readiness scoring.</div>
+    </div>
+
+    <!-- PHOTOS -->
+    <div id="photos" class="page">
+        <h2>Progress Photos</h2>
+        <p style="color:#A07850; font-size:14px; margin-top:-8px;">Log each photo session with conditions checklist and notes. Store your photo, track your consistency.</p>
+
+        <div class="info-box">
+            <strong>Standardized Conditions Checklist</strong><br>
+            Complete all before taking your photo for valid comparisons.
+        </div>
+
+        <div style="background:#FAF5EE; border-radius:10px; padding:18px; margin:15px 0;">
+            <div style="font-weight:700; color:#7A5C3A; margin-bottom:12px;">Before You Shoot</div>
+            <label style="display:flex; align-items:center; gap:10px; margin:8px 0; font-size:14px;"><input type="checkbox" id="chk1" style="width:18px;height:18px;accent-color:#C9A882;"> Same time of day (morning, fasted)</label>
+            <label style="display:flex; align-items:center; gap:10px; margin:8px 0; font-size:14px;"><input type="checkbox" id="chk2" style="width:18px;height:18px;accent-color:#C9A882;"> Same lighting (natural light, same spot)</label>
+            <label style="display:flex; align-items:center; gap:10px; margin:8px 0; font-size:14px;"><input type="checkbox" id="chk3" style="width:18px;height:18px;accent-color:#C9A882;"> Same outfit (or no shirt)</label>
+            <label style="display:flex; align-items:center; gap:10px; margin:8px 0; font-size:14px;"><input type="checkbox" id="chk4" style="width:18px;height:18px;accent-color:#C9A882;"> Same poses (front, side, back)</label>
+            <label style="display:flex; align-items:center; gap:10px; margin:8px 0; font-size:14px;"><input type="checkbox" id="chk5" style="width:18px;height:18px;accent-color:#C9A882;"> Same distance from mirror/camera</label>
+            <label style="display:flex; align-items:center; gap:10px; margin:8px 0; font-size:14px;"><input type="checkbox" id="chk6" style="width:18px;height:18px;accent-color:#C9A882;"> Relaxed pose + flexed pose both captured</label>
+        </div>
+
+        <div class="log-form" style="flex-direction:column; align-items:stretch;">
+            <input type="date" id="photoDate" style="flex:none;">
+            <input type="text" id="photoNote" placeholder="Notes (weight, how you felt, what you notice...)" style="flex:none;">
+            <input type="file" id="photoFile" accept="image/*" capture="user" style="flex:none; font-size:13px; color:#8B6B4A;">
+            <button class="log-btn" onclick="logPhoto()" style="align-self:flex-start;">Save Photo Session</button>
+        </div>
+
+        <div id="photoHistory"></div>
     </div>
 
 </div>
@@ -516,6 +569,9 @@ function showTab(t, e) {
     if(t==='tracker') { renderBWChart(); renderBWHistory(); renderBWStats(); }
     if(t==='exlog') renderExerciseHistory();
     if(t==='myweights') renderMyWeights();
+    if(t==='nutrition') { renderHydration(); }
+    if(t==='photos') renderPhotoHistory();
+    if(t==='exlog') { renderExerciseHistory(); renderPRFeed(); }
 }
 function showDay(d, e) {
     document.querySelectorAll('.workout').forEach(w => w.classList.remove('active'));
@@ -622,7 +678,7 @@ async function renderBWChart() {
     const canvas = document.getElementById('bwChart');
     canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);
     if (log.length < 2) return;
-    drawChart(canvas, log.map(e=>fmtDate(e.date)), log.map(e=>e.weight), '#667eea', 'Bodyweight (lbs)');
+    drawChart(canvas, log.map(e=>fmtDate(e.date)), log.map(e=>e.weight), '#C9A882', 'Bodyweight (lbs)');
 }
 
 // ─── EXERCISE LOG ─────────────────────────────────────────────────
@@ -661,7 +717,7 @@ async function renderExerciseHistory() {
     const canvas = document.getElementById('exChart');
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    if (entries.length > 1) drawChart(canvas, entries.map(e=>fmtDate(e.date)), entries.map(e=>e.weight), '#764ba2', ex + ' — lbs over time');
+    if (entries.length > 1) drawChart(canvas, entries.map(e=>fmtDate(e.date)), entries.map(e=>e.weight), '#A07850', ex + ' — lbs over time');
     const c = document.getElementById('exHistory');
     if (!entries.length) { c.innerHTML = '<div class="empty-state">No entries yet for ' + ex + '.</div>'; return; }
     const maxW = Math.max(...entries.map(e=>e.weight));
@@ -750,6 +806,121 @@ function drawChart(canvas, labels, data, color, title) {
 }
 
 // ─── UTILS ────────────────────────────────────────────────────────
+
+// ─── HYDRATION TRACKER ────────────────────────────────────────────
+function getHydrationKey() {
+    return 'hydration_' + new Date().toISOString().split('T')[0];
+}
+async function getHydration() { return (await sGet(getHydrationKey())) || 0; }
+
+async function addWater(cups) {
+    let current = await getHydration();
+    current = Math.max(0, Math.min(16, current + cups));
+    await sSet(getHydrationKey(), current);
+    renderHydration();
+}
+window.addWater = addWater;
+
+async function renderHydration() {
+    const cups = await getHydration();
+    document.getElementById('hydrationCount').textContent = cups;
+    document.getElementById('hydrationFill').style.width = Math.min(100, (cups/16)*100) + '%';
+    const msg = document.getElementById('hydrationMsg');
+    if (cups >= 16) msg.textContent = '✓ Goal hit. Gallon done.';
+    else if (cups >= 12) msg.textContent = '3/4 there — keep going.';
+    else if (cups >= 8) msg.textContent = 'Halfway. Push through.';
+    else msg.textContent = '';
+}
+
+// ─── PR FEED ──────────────────────────────────────────────────────
+const ALL_EXERCISES = [
+    'Hip Thrusts','Bulgarian Split Squats','Sumo Goblet Squats','Cable Kickbacks',
+    'Lying Leg Curls','Abductor Machine','Standing Calf Raises','Pallof Press',
+    'Romanian Deadlifts','Front/Goblet Squats','Walking Lunges','Single-Leg RDLs',
+    'Leg Press','Leg Curls','Seated Calf Raises','Hanging Knee Raises',
+    'Overhead Press','Incline DB Press','Pull-Ups','Cable Rows','Single-Arm Rows',
+    'Lateral Raises','Face Pulls','Reverse Flyes','Bicep Curls','Tricep Pushdowns','Shrugs'
+];
+
+async function renderPRFeed() {
+    const log = await getEx();
+    const prs = [];
+    ALL_EXERCISES.forEach(ex => {
+        const entries = log[ex] || [];
+        if (!entries.length) return;
+        const maxEntry = entries.reduce((best, e) => e.weight > best.weight ? e : best, entries[0]);
+        prs.push({ ex, weight: maxEntry.weight, sr: maxEntry.sr, date: maxEntry.date });
+    });
+    prs.sort((a, b) => b.date.localeCompare(a.date));
+    const c = document.getElementById('prFeed');
+    if (!prs.length) { c.innerHTML = '<div class="empty-state">No PRs yet. Start logging to build your record.</div>'; return; }
+    c.innerHTML = prs.map(p =>
+        `<div class="log-entry">
+            <span class="entry-date" style="min-width:80px;">${p.ex}</span>
+            <span class="entry-val">${p.weight} lbs${p.sr ? ' <span style="color:#A07850;font-weight:400;">@ '+p.sr+'</span>' : ''} <span class="pr-badge">PR</span></span>
+            <span style="color:#A07850; font-size:12px;">${fmtDate(p.date)}</span>
+        </div>`
+    ).join('');
+}
+
+// ─── PROGRESS PHOTOS ──────────────────────────────────────────────
+async function getPhotos() { return (await sGet('photoLog')) || []; }
+
+async function logPhoto() {
+    const date = document.getElementById('photoDate').value;
+    const note = document.getElementById('photoNote').value.trim();
+    const file = document.getElementById('photoFile').files[0];
+    if (!date) return alert('Select a date first.');
+    
+    const checks = [1,2,3,4,5,6].map(i => document.getElementById('chk'+i).checked);
+    const checkCount = checks.filter(Boolean).length;
+
+    let photoData = null;
+    if (file) {
+        photoData = await new Promise((res) => {
+            const reader = new FileReader();
+            reader.onload = e => res(e.target.result);
+            reader.readAsDataURL(file);
+        });
+    }
+
+    const photos = await getPhotos();
+    photos.unshift({ date, note, checks, checkCount, photoData });
+    await sSet('photoLog', photos);
+
+    // Reset form
+    document.getElementById('photoNote').value = '';
+    document.getElementById('photoFile').value = '';
+    [1,2,3,4,5,6].forEach(i => document.getElementById('chk'+i).checked = false);
+    renderPhotoHistory();
+}
+window.logPhoto = logPhoto;
+
+async function deletePhoto(index) {
+    const photos = await getPhotos();
+    photos.splice(index, 1);
+    await sSet('photoLog', photos);
+    renderPhotoHistory();
+}
+window.deletePhoto = deletePhoto;
+
+async function renderPhotoHistory() {
+    const photos = await getPhotos();
+    const c = document.getElementById('photoHistory');
+    if (!photos.length) { c.innerHTML = '<div class="empty-state">No photo sessions logged yet.</div>'; return; }
+    c.innerHTML = photos.map((p, i) => `
+        <div style="background:#FAF5EE; border-radius:10px; padding:16px; margin:10px 0; border-left:4px solid #D4B896;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <span style="font-weight:700; color:#5C3D2E;">${fmtDate(p.date)}</span>
+                <span style="font-size:12px; color:#A07850;">${p.checkCount}/6 conditions ✓</span>
+                <button class="entry-del" onclick="deletePhoto(${i})">×</button>
+            </div>
+            ${p.photoData ? `<img src="${p.photoData}" style="width:100%; max-height:280px; object-fit:cover; border-radius:8px; margin-bottom:8px;">` : ''}
+            ${p.note ? `<div style="font-size:13px; color:#7A5C3A;">${p.note}</div>` : ''}
+        </div>
+    `).join('');
+}
+
 function fmtDate(d) {
     const [y,m,day] = d.split('-');
     return m+'/'+day+'/'+y.slice(2);
@@ -765,6 +936,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     await renderBWHistory();
     await renderBWChart();
     await renderExerciseHistory();
+    await renderHydration();
+    await renderPRFeed();
+    await renderPhotoHistory();
 });
 </script>
 
