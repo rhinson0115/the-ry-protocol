@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ry Protocol</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        .header h1 { margin: 0 0 5px; }
+        .header p { margin: 0; opacity: 0.85; font-size: 14px; }
+
+```
+    .cycle-banner {
+        background: #1a202c;
+        color: white;
+        padding: 14px 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .cycle-label { font-size: 12px; color: #a0aec0; text-transform: uppercase; letter-spacing: 1px; }
+    .cycle-week-display { font-size: 20px; font-weight: 700; }
+    .cycle-week-display.deload { color: #68d391; }
+    .cycle-week-display.accumulation { color: #90cdf4; }
+    .cycle-pips { display: flex; gap: 8px; align-items: center; }
+    .pip {
+        width: 28px; height: 28px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 11px; font-weight: 700; cursor: pointer;
+        transition: all 0.2s;
+    }
+    .pip.acc { background: #2a4a6b; color: #90cdf4; }
+    .pip.acc.current { background: #4a90d9; color: white; transform: scale(1.2); }
+    .pip.dl { background: #1a3d2b; color: #68d391; }
+    .pip.dl.current { background: #38a169; color: white; transform: scale(1.2); }
+    .cycle-controls { display: flex; gap: 8px; }
+    .cycle-btn {
+        padding: 6px 14px; border-radius: 6px; border: none; cursor: pointer;
+        font-size: 13px; font-weight: 600;
+    }
+    .cycle-btn.prev { background: #2d3748; color: #a0aec0; }
+    .cycle-btn.next { background: #667eea; color: white; }
+
+    .tabs { display: flex; background: #f7fafc; overflow-x: auto; }
+    .tab {
+        flex: 1; min-width: 80px; padding: 14px 8px;
+        text-align: center; cursor: pointer; font-weight: 600;
+        border: none; background: transparent; color: #718096;
+        font-size: 13px; white-space: nowrap;
+    }
+    .tab.active { background: white; color: #667eea; border-bottom: 3px solid #667eea; }
+
+    .content { padding: 25px; }
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .day-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+        margin: 20px 0;
+    }
+    .day-btn {
+        padding: 10px 4px; border: 2px solid #e2e8f0;
+        border-radius: 8px; background: white; cursor: pointer;
+        text-align: center; font-weight: 600; font-size: 11px;
+        transition: all 0.2s; line-height: 1.4;
+    }
+    .day-btn.active {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white; border-color: transparent;
+    }
+    .day-btn.rest-day { border-color: #c6f6d5; color: #276749; }
+    .day-btn.rest-day.active {
+        background: linear-gradient(135deg, #38a169 0%, #276749 100%);
+        color: white;
+    }
+    .workout { display: none; }
+    .workout.active { display: block; }
+
+    .exercise {
+        background: #f7fafc; padding: 15px; margin: 10px 0;
+        border-radius: 8px; border-left: 4px solid #667eea;
+    }
+    .info-box {
+        background: #ebf8ff; padding: 15px; margin: 15px 0;
+        border-radius: 8px; border-left: 4px solid #4299e1;
+    }
+    .rest-box {
+        background: #f0fff4; padding: 15px; margin: 15px 0;
+        border-radius: 8px; border-left: 4px solid #38a169;
+    }
+    .schedule-note {
+        background: #fffbeb; border-left: 4px solid #f6ad55;
+        padding: 12px 15px; border-radius: 8px; margin: 15px 0; font-size: 14px;
+    }
+    .tag {
+        display: inline-block; padding: 3px 10px; border-radius: 20px;
+        font-size: 12px; font-weight: 600; margin-left: 8px; vertical-align: middle;
+    }
+    .tag-strength { background: #e9d8fd; color: #553c9a; }
+    .tag-martial { background: #fed7e2; color: #97266d; }
+    .tag-cardio { background: #bee3f8; color: #2a69ac; }
+    .tag-rest { background: #c6f6d5; color: #276749; }
+
+    .log-form {
+        display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 12px;
+    }
+    .log-form input, .log-form select {
+        padding: 8px 10px; border: 2px solid #e2e8f0; border-radius: 6px;
+        font-size: 14px; flex: 1; min-width: 90px;
+    }
+    .log-form input:focus, .log-form select:focus { outline: none; border-color: #667eea; }
+    .log-btn {
+        padding: 8px 18px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white; border: none; border-radius: 6px; cursor: pointer;
+        font-weight: 600; font-size: 14px; white-space: nowrap;
+    }
+    .log-btn:hover { opacity: 0.9; }
+
+    .log-entry {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 8px 12px; background: #f7fafc; border-radius: 6px; margin: 4px 0;
+        font-size: 13px;
+    }
+    .log-entry .entry-date { color: #718096; min-width: 60px; }
+    .log-entry .entry-val { font-weight: 700; color: #2d3748; flex: 1; padding: 0 10px; }
+    .log-entry .entry-del {
+        background: none; border: none; color: #fc8181; cursor: pointer;
+        font-size: 18px; padding: 0 4px; line-height: 1;
+    }
+    .empty-state { color: #a0aec0; font-size: 13px; font-style: italic; padding: 10px 0; }
+
+    .stats-row {
+        display: flex; gap: 15px; flex-wrap: wrap; margin: 12px 0;
+    }
+    .stat-box {
+        background: #f7fafc; border-radius: 8px; padding: 12px 16px;
+        text-align: center; flex: 1; min-width: 80px;
+    }
+    .stat-box .slabel { font-size: 11px; color: #a0aec0; text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-box .sval { font-size: 20px; font-weight: 700; color: #2d3748; margin-top: 2px; }
+    .stat-box .sval.down { color: #38a169; }
+    .stat-box .sval.up { color: #e53e3e; }
+
+    canvas { width: 100% !important; border-radius: 8px; display: block; margin: 10px 0; }
+
+    .mw-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    .mw-card {
+        background: #f7fafc;
+        border-radius: 10px;
+        padding: 14px;
+        border-left: 4px solid #667eea;
+        transition: transform 0.15s;
+    }
+    .mw-card:hover { transform: translateY(-2px); }
+    .mw-card.no-data { border-left-color: #e2e8f0; opacity: 0.6; }
+    .mw-card .mw-name { font-size: 12px; color: #718096; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 6px; }
+    .mw-card .mw-weight { font-size: 24px; font-weight: 800; color: #2d3748; line-height: 1; }
+    .mw-card .mw-weight.empty { font-size: 16px; color: #cbd5e0; font-weight: 400; }
+    .mw-card .mw-meta { font-size: 11px; color: #a0aec0; margin-top: 4px; }
+        display: inline-block; background: #faf089; color: #744210;
+        padding: 1px 7px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-left: 6px;
+    }
+
+    .section-header { color: #2d3748; margin: 20px 0 10px; font-size: 17px; font-weight: 700; }
+    h2 { color: #2d3748; margin-top: 5px; }
+    h3 { color: #4a5568; margin: 15px 0 8px; }
+
+    @media (max-width: 580px) {
+        .day-grid { grid-template-columns: repeat(4, 1fr); }
+        .cycle-banner { flex-direction: column; align-items: flex-start; }
+    }
+</style>
+```
+
+</head>
+<body>
+<div class="container">
+
+```
+<div class="header">
+    <h1>The Ry Protocol</h1>
+    <p>Kung Fu &nbsp;•&nbsp; Muay Thai &nbsp;•&nbsp; Strength &nbsp;•&nbsp; Solidcore — Track Athlete Optimized</p>
+</div>
+
+<div class="cycle-banner">
+    <div>
+        <div class="cycle-label">Cycle Week</div>
+        <div class="cycle-week-display" id="cycleWeekDisplay">—</div>
+    </div>
+    <div class="cycle-pips" id="cyclePips"></div>
+    <div class="cycle-controls">
+        <button class="cycle-btn prev" onclick="changeCycleWeek(-1)">← Back</button>
+        <button class="cycle-btn next" onclick="changeCycleWeek(1)">Next →</button>
+    </div>
+</div>
+
+<div class="tabs">
+    <button class="tab active" onclick="showTab('training',event)">Training</button>
+    <button class="tab" onclick="showTab('myweights',event)">My Weights</button>
+    <button class="tab" onclick="showTab('tracker',event)">Body Weight</button>
+    <button class="tab" onclick="showTab('exlog',event)">Exercise Log</button>
+    <button class="tab" onclick="showTab('nutrition',event)">Nutrition</button>
+    <button class="tab" onclick="showTab('progress',event)">Progress</button>
+</div>
+
+<div class="content">
+
+    <!-- TRAINING -->
+    <div id="training" class="page active">
+        <div class="info-box">
+            <strong>Daily Non-Negotiables:</strong>&nbsp; 8,000–10,000 steps &nbsp;•&nbsp; 1 gallon water &nbsp;•&nbsp; 140–160g protein
+        </div>
+        <div class="schedule-note">
+            <strong>Schedule Notes:</strong> Strength before skill on all paired days. Muay Thai currently foundations-level — reassess lower body spacing when transitioning to advanced classes.
+        </div>
+        <div class="day-grid">
+            <button class="day-btn active" onclick="showDay('mon',event)">MON<br><small>Lower+KF</small></button>
+            <button class="day-btn" onclick="showDay('tue',event)">TUE<br><small>Run+MT</small></button>
+            <button class="day-btn" onclick="showDay('wed',event)">WED<br><small>Muay Thai</small></button>
+            <button class="day-btn" onclick="showDay('thu',event)">THU<br><small>Lower</small></button>
+            <button class="day-btn" onclick="showDay('fri',event)">FRI<br><small>Upper+KF</small></button>
+            <button class="day-btn" onclick="showDay('sat',event)">SAT<br><small>Solidcore</small></button>
+            <button class="day-btn rest-day" onclick="showDay('sun',event)">SUN<br><small>Rest</small></button>
+        </div>
+
+        <div id="mon" class="workout active">
+            <h2>MONDAY — Lower Body + Kung Fu <span class="tag tag-strength">Strength</span><span class="tag tag-martial">Martial</span></h2>
+            <div class="info-box">Strength first while fresh. Coming off Sunday rest — push lower body hard today.</div>
+            <div class="exercise"><strong>Pre-Training:</strong> Snack 60–90 min before (rice cakes + almond butter, dates, oats)</div>
+            <h3>Lower Body (24 Sets)</h3>
+            <div class="exercise"><strong>1. Hip Thrusts:</strong> 4x10–12, Rest 2–3 min. Heavy. Primary glute builder.</div>
+            <div class="exercise"><strong>2. Bulgarian Split Squats:</strong> 3x10–12 each, Rest 90 sec</div>
+            <div class="exercise"><strong>3. Sumo Goblet Squats:</strong> 3x12–15, Rest 90 sec</div>
+            <div class="exercise"><strong>4. Cable Kickbacks:</strong> 3x12–15 each, Rest 60 sec</div>
+            <div class="exercise"><strong>5. Lying Leg Curls:</strong> 3x12–15, Rest 60 sec</div>
+            <div class="exercise"><strong>6. Abductor Machine:</strong> 2x15–20, Rest 60 sec</div>
+            <div class="exercise"><strong>7. Standing Calf Raises:</strong> 3x15–20, Rest 45 sec</div>
+            <div class="exercise"><strong>8. Pallof Press:</strong> 3x12 each side, Rest 60 sec</div>
+            <h3>Kung Fu</h3>
+            <div class="exercise">Traditional forms and technique drilling. Skill focus, not combat intensity.</div>
+        </div>
+
+        <div id="tue" class="workout">
+            <h2>TUESDAY — Run + Muay Thai <span class="tag tag-cardio">Cardio</span><span class="tag tag-martial">Martial</span></h2>
+            <div class="info-box">30 min run first. Muay Thai foundations after. Pace the run to preserve quality for class.</div>
+            <div class="exercise"><strong>Run:</strong> 30 minutes. Steady state or intervals depending on energy.</div>
+            <div class="exercise"><strong>Muay Thai (Foundations):</strong> Technical drilling, basic combinations, stance work.</div>
+        </div>
+
+        <div id="wed" class="workout">
+            <h2>WEDNESDAY — Muay Thai <span class="tag tag-martial">Martial</span></h2>
+            <div class="info-box">Standalone Muay Thai. Thursday rest follows — push technique today.</div>
+            <div class="exercise"><strong>Muay Thai (Foundations):</strong> Second session of the week. Full focus on technique and combinations.</div>
+        </div>
+
+        <div id="thu" class="workout">
+            <h2>THURSDAY — Lower Body <span class="tag tag-strength">Strength</span></h2>
+            <div class="info-box">Hamstring-dominant day. Complements Monday's glute-dominant session. Three days between lower body days — come in ready to load.</div>
+            <h3>Lower Body (24 Sets)</h3>
+            <div class="exercise"><strong>1. Romanian Deadlifts:</strong> 4x8–10, Rest 2–3 min. Heavy. Primary hamstring builder.</div>
+            <div class="exercise"><strong>2. Front/Goblet Squats:</strong> 3x10–12, Rest 2 min</div>
+            <div class="exercise"><strong>3. Walking Lunges:</strong> 3x12 each, Rest 90 sec</div>
+            <div class="exercise"><strong>4. Single-Leg RDLs:</strong> 2x10–12 each, Rest 90 sec</div>
+            <div class="exercise"><strong>5. Leg Press:</strong> 3x12–15, Rest 90 sec</div>
+            <div class="exercise"><strong>6. Leg Curls:</strong> 3x12–15, Rest 60 sec</div>
+            <div class="exercise"><strong>7. Seated Calf Raises:</strong> 3x15–20, Rest 45 sec</div>
+            <div class="exercise"><strong>8. Hanging Knee Raises:</strong> 3x10–15, Rest 60 sec</div>
+            <div class="rest-box"><strong>Recovery for Friday:</strong> Stretch 15 min &nbsp;•&nbsp; Epsom bath &nbsp;•&nbsp; Hydrate 32+ oz before bed &nbsp;•&nbsp; Sleep 8+ hours</div>
+        </div>
+
+        <div id="fri" class="workout">
+            <h2>FRIDAY — Upper Body + Kung Fu <span class="tag tag-strength">Strength</span><span class="tag tag-martial">Martial</span></h2>
+            <div class="info-box">Upper body first while fresh. Longest session — supersetting keeps time efficient. Should feel good off Thursday rest.</div>
+            <h3>Upper Body (38 Sets)</h3>
+            <div class="exercise"><strong>1. Overhead Press:</strong> 4x8–10, Rest 2–3 min</div>
+            <div class="exercise"><strong>2. Incline DB Press:</strong> 3x10–12, Rest 2 min</div>
+            <div class="exercise"><strong>3. Pull-Ups:</strong> 4x8–12, Rest 2 min</div>
+            <div class="exercise"><strong>4. Cable Rows:</strong> 4x10–12, Rest 90 sec</div>
+            <div class="exercise"><strong>5. Single-Arm Rows:</strong> 3x10–12 each, Rest 75 sec</div>
+            <div class="exercise"><strong>6. Lateral Raises:</strong> 4x12–15, Rest 60 sec</div>
+            <div class="exercise"><strong>7. Face Pulls:</strong> 3x15–20, Rest 60 sec</div>
+            <div class="exercise"><strong>8. Reverse Flyes:</strong> 3x12–15, Rest 60 sec</div>
+            <div class="exercise"><strong>9. Bicep Curls:</strong> 3x12–15, Rest 60 sec</div>
+            <div class="exercise"><strong>10. Tricep Pushdowns:</strong> 3x12–15, Rest 60 sec</div>
+            <div class="exercise"><strong>11. Shrugs:</strong> 3x12–15, Rest 90 sec</div>
+            <h3>Kung Fu</h3>
+            <div class="exercise">Traditional forms and technique drilling after upper body.</div>
+        </div>
+
+        <div id="sat" class="workout">
+            <h2>SATURDAY — Solidcore <span class="tag tag-strength">Core</span></h2>
+            <div class="info-box">Standalone Solidcore. Core and stability dominant. Low-demand going into Sunday rest.</div>
+            <div class="exercise"><strong>Solidcore:</strong> Full class. Core-dominant, stability-focused.</div>
+            <div class="exercise"><strong>Post-Session:</strong> Stretch 15 min. Hydrate well. Tomorrow is rest.</div>
+        </div>
+
+        <div id="sun" class="workout">
+            <h2>SUNDAY — Rest Day <span class="tag tag-rest">Rest</span></h2>
+            <div class="rest-box">
+                Walk 8–10K steps &nbsp;•&nbsp; Foam roll 15 min &nbsp;•&nbsp; Stretch 15 min &nbsp;•&nbsp; Hydrate full gallon &nbsp;•&nbsp; 8+ hours sleep
+            </div>
+            <div class="schedule-note">
+                <strong>Disruption Protocol:</strong> If Sunday rest gets compromised, do not compensate by doubling Monday. Accept the miss, reset the week.
+            </div>
+        </div>
+    </div>
+
+    <!-- BODY WEIGHT TRACKER -->
+    <div id="tracker" class="page">
+        <h2>Bodyweight Log</h2>
+        <div class="log-form">
+            <input type="date" id="bwDate">
+            <input type="number" id="bwValue" placeholder="Weight (lbs)" step="0.1" min="50" max="500">
+            <button class="log-btn" onclick="logBodyweight()">Log Weight</button>
+        </div>
+        <div class="stats-row" id="bwStats">
+            <div class="stat-box"><div class="slabel">Current</div><div class="sval" id="bwCurrent">—</div></div>
+            <div class="stat-box"><div class="slabel">Starting</div><div class="sval" id="bwStart">—</div></div>
+            <div class="stat-box"><div class="slabel">Change</div><div class="sval" id="bwChange">—</div></div>
+            <div class="stat-box"><div class="slabel">Lowest</div><div class="sval" id="bwLow">—</div></div>
+        </div>
+        <canvas id="bwChart" height="130"></canvas>
+        <div class="section-header" style="font-size:14px; color:#718096;">Recent Entries</div>
+        <div id="bwHistory"></div>
+    </div>
+
+    <!-- EXERCISE LOG -->
+    <div id="exlog" class="page">
+        <h2>Exercise Weight Log</h2>
+        <p style="color:#718096; font-size:14px; margin-top:-8px;">Track working weights per exercise. PRs auto-flagged.</p>
+        <div class="log-form">
+            <select id="exerciseSelect" onchange="renderExerciseHistory()" style="flex:2; min-width:160px;">
+                <optgroup label="Lower Body — Monday (Glute Focus)">
+                    <option>Hip Thrusts</option>
+                    <option>Bulgarian Split Squats</option>
+                    <option>Sumo Goblet Squats</option>
+                    <option>Cable Kickbacks</option>
+                    <option>Lying Leg Curls</option>
+                    <option>Abductor Machine</option>
+                    <option>Standing Calf Raises</option>
+                    <option>Pallof Press</option>
+                </optgroup>
+                <optgroup label="Lower Body — Thursday (Hamstring Focus)">
+                    <option>Romanian Deadlifts</option>
+                    <option>Front/Goblet Squats</option>
+                    <option>Walking Lunges</option>
+                    <option>Single-Leg RDLs</option>
+                    <option>Leg Press</option>
+                    <option>Leg Curls</option>
+                    <option>Seated Calf Raises</option>
+                    <option>Hanging Knee Raises</option>
+                </optgroup>
+                <optgroup label="Upper Body">
+                    <option>Overhead Press</option>
+                    <option>Incline DB Press</option>
+                    <option>Pull-Ups</option>
+                    <option>Cable Rows</option>
+                    <option>Single-Arm Rows</option>
+                    <option>Lateral Raises</option>
+                    <option>Face Pulls</option>
+                    <option>Reverse Flyes</option>
+                    <option>Bicep Curls</option>
+                    <option>Tricep Pushdowns</option>
+                    <option>Shrugs</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="log-form">
+            <input type="date" id="exDate">
+            <input type="number" id="exWeight" placeholder="Weight (lbs)" step="2.5" min="0">
+            <input type="text" id="exSetsReps" placeholder="e.g. 4x10" style="max-width:110px;">
+            <button class="log-btn" onclick="logExercise()">Log</button>
+        </div>
+        <canvas id="exChart" height="140"></canvas>
+        <div id="exHistory"></div>
+    </div>
+
+    <!-- MY WEIGHTS -->
+    <div id="myweights" class="page">
+        <h2>My Current Weights</h2>
+        <p style="color:#718096; font-size:14px; margin-top:-8px;">Most recent logged weight per exercise. Updates automatically as you log in Exercise Log.</p>
+        <h3 style="color:#553c9a; border-bottom:2px solid #e9d8fd; padding-bottom:6px;">Lower Body — Monday (Glute Focus)</h3>
+        <div id="mw-lower-mon" class="mw-grid"></div>
+        <h3 style="color:#553c9a; border-bottom:2px solid #e9d8fd; padding-bottom:6px; margin-top:20px;">Lower Body — Thursday (Hamstring Focus)</h3>
+        <div id="mw-lower-thu" class="mw-grid"></div>
+        <h3 style="color:#553c9a; border-bottom:2px solid #e9d8fd; padding-bottom:6px; margin-top:20px;">Upper Body</h3>
+        <div id="mw-upper" class="mw-grid"></div>
+        <div class="schedule-note" style="margin-top:20px;">Tap any exercise in the <strong>Exercise Log</strong> tab to view full progression history.</div>
+    </div>
+
+    <!-- NUTRITION -->
+    <div id="nutrition" class="page">
+        <h2>Pre-Workout Fuel (60–90 min before)</h2>
+        <div class="exercise"><strong>Rice Cakes + Almond Butter:</strong> 40g carbs, 8g protein</div>
+        <div class="exercise"><strong>Medjool Dates:</strong> 45g carbs, 2g protein — 4–5 dates. Fast energy.</div>
+        <div class="exercise"><strong>Overnight Oats:</strong> 40g carbs, 15g protein — 1/2 cup oats + protein powder</div>
+        <div class="exercise"><strong>Apple + Almond Butter:</strong> 35g carbs, 4g protein</div>
+        <h2 style="margin-top:25px;">Post-Workout Recovery (Within 60 min)</h2>
+        <div class="exercise"><strong>Protein Shake + Dates:</strong> 35g carbs, 25g protein</div>
+        <div class="exercise"><strong>Greek Yogurt + Berries:</strong> 45g carbs, 20g protein — 1 cup yogurt + 2 tbsp honey</div>
+        <div class="exercise"><strong>Chicken + Sweet Potato:</strong> 35g carbs, 35g protein</div>
+        <div class="info-box"><strong>Daily Targets:</strong> 140–160g protein &nbsp;•&nbsp; 35–40g fiber &nbsp;•&nbsp; 150–200g carbs &nbsp;•&nbsp; 60–80g fat &nbsp;•&nbsp; 1 gallon water &nbsp;•&nbsp; 8,000–10,000 steps</div>
+    </div>
+
+    <!-- PROGRESS -->
+    <div id="progress" class="page">
+        <h2>Progressive Overload Strategy</h2>
+        <div class="exercise">
+            <strong>4-Week Cycle:</strong><br>
+            Week 1: Find working weight &nbsp;•&nbsp; Week 2: +1 rep/set &nbsp;•&nbsp; Week 3: +1 more rep &nbsp;•&nbsp; Week 4: Deload (−20%) &nbsp;•&nbsp; Week 5: +5–10 lbs, restart
+        </div>
+        <div class="exercise">
+            <strong>Example — Hip Thrusts:</strong><br>
+            W1: 135×4x10 &nbsp; W2: 135×4x11 &nbsp; W3: 135×4x12 &nbsp; W4: 115×4x10 &nbsp; W5: 145×4x10
+        </div>
+        <h2 style="margin-top:25px;">Milestones</h2>
+        <div class="exercise"><strong>Month 3:</strong> Hip Thrusts +30–40 lbs, OHP +15–20 lbs, visible glute growth</div>
+        <div class="exercise"><strong>Month 6:</strong> Hip Thrusts +60–80 lbs, significant transformation</div>
+        <div class="exercise"><strong>Month 9–10:</strong> Hip Thrusts 225–255 lbs — <strong>SNATCHED ACHIEVED</strong></div>
+        <div class="schedule-note"><strong>Muay Thai Flag:</strong> When transitioning to advanced classes, reassess Monday lower body spacing — Tuesday/Wednesday leg stimulus increases significantly.</div>
+        <div class="info-box"><strong>Recovery:</strong> Oura Ring — Post-CISSP closeout (Q1 2026). Adds HRV, sleep staging, readiness scoring.</div>
+    </div>
+
+</div>
+```
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyANLFWZSGD_6hF5FkRIrzSiCroWs8bXcc8",
+    authDomain: "the-ry-protocol.firebaseapp.com",
+    projectId: "the-ry-protocol",
+    storageBucket: "the-ry-protocol.firebasestorage.app",
+    messagingSenderId: "1091455655761",
+    appId: "1:1091455655761:web:06796a49d8567e1c7efd70"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ─── FIREBASE STORAGE ─────────────────────────────────────────────
+const _cache = {};
+
+function lsGet(key) {
+    try { const v = localStorage.getItem('ry_' + key); return v ? JSON.parse(v) : null; } catch(e) { return null; }
+}
+function lsSet(key, value) {
+    try { localStorage.setItem('ry_' + key, JSON.stringify(value)); } catch(e) {}
+}
+
+async function sSet(key, value) {
+    _cache[key] = value;
+    lsSet(key, value);
+    try {
+        await setDoc(doc(db, 'ryprotocol', key), { value: JSON.stringify(value) });
+    } catch(e) { console.warn('Firebase write error:', e); }
+}
+
+async function sGet(key) {
+    if (_cache[key] !== undefined) return _cache[key];
+    const local = lsGet(key);
+    if (local !== null) { _cache[key] = local; }
+    try {
+        const snap = await getDoc(doc(db, 'ryprotocol', key));
+        if (snap.exists()) {
+            const val = JSON.parse(snap.data().value);
+            _cache[key] = val;
+            lsSet(key, val);
+            return val;
+        }
+    } catch(e) { console.warn('Firebase read error:', e); }
+    return local;
+}
+
+// ─── TABS & DAYS ──────────────────────────────────────────────────
+function showTab(t, e) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+    document.getElementById(t).classList.add('active');
+    if(e) e.target.classList.add('active');
+    if(t==='tracker') { renderBWChart(); renderBWHistory(); renderBWStats(); }
+    if(t==='exlog') renderExerciseHistory();
+    if(t==='myweights') renderMyWeights();
+}
+function showDay(d, e) {
+    document.querySelectorAll('.workout').forEach(w => w.classList.remove('active'));
+    document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(d).classList.add('active');
+    if(e) e.target.classList.add('active');
+}
+window.showTab = showTab;
+window.showDay = showDay;
+
+// ─── CYCLE TRACKER ────────────────────────────────────────────────
+const WEEKS = [
+    {label:'Accumulation Week 1', type:'accumulation'},
+    {label:'Accumulation Week 2', type:'accumulation'},
+    {label:'Accumulation Week 3', type:'accumulation'},
+    {label:'Deload Week',         type:'deload'},
+];
+
+async function getCycle() { return (await sGet('cycle')) || {w:0}; }
+
+async function renderCycle() {
+    const {w} = await getCycle();
+    const wk = WEEKS[w];
+    const el = document.getElementById('cycleWeekDisplay');
+    el.textContent = wk.label;
+    el.className = 'cycle-week-display ' + wk.type;
+    const pips = document.getElementById('cyclePips');
+    pips.innerHTML = '';
+    WEEKS.forEach((wk2, i) => {
+        const p = document.createElement('div');
+        p.className = 'pip ' + (wk2.type==='deload'?'dl':'acc') + (i===w?' current':'');
+        p.textContent = i===3 ? 'D' : i+1;
+        p.title = wk2.label;
+        p.onclick = async () => { await sSet('cycle',{w:i}); renderCycle(); };
+        pips.appendChild(p);
+    });
+}
+
+async function changeCycleWeek(dir) {
+    const d = await getCycle();
+    d.w = (d.w + dir + 4) % 4;
+    await sSet('cycle', d);
+    renderCycle();
+}
+window.changeCycleWeek = changeCycleWeek;
+
+// ─── BODYWEIGHT ───────────────────────────────────────────────────
+async function getBW() { return (await sGet('bwLog')) || []; }
+
+async function logBodyweight() {
+    const date = document.getElementById('bwDate').value;
+    const val = parseFloat(document.getElementById('bwValue').value);
+    if (!date || isNaN(val) || val <= 0) return alert('Enter a valid date and weight.');
+    const log = await getBW();
+    const i = log.findIndex(e => e.date === date);
+    if (i >= 0) log[i].weight = val; else log.push({date, weight: val});
+    log.sort((a,b) => a.date.localeCompare(b.date));
+    await sSet('bwLog', log);
+    document.getElementById('bwValue').value = '';
+    renderBWChart(); renderBWHistory(); renderBWStats();
+}
+window.logBodyweight = logBodyweight;
+
+async function deleteBW(date) {
+    const log = await getBW();
+    await sSet('bwLog', log.filter(e => e.date !== date));
+    renderBWChart(); renderBWHistory(); renderBWStats();
+}
+window.deleteBW = deleteBW;
+
+async function renderBWStats() {
+    const log = await getBW();
+    if (!log.length) {
+        ['bwCurrent','bwStart','bwChange','bwLow'].forEach(id => document.getElementById(id).textContent = '—');
+        return;
+    }
+    const cur = log[log.length-1].weight;
+    const start = log[0].weight;
+    const low = Math.min(...log.map(e=>e.weight));
+    const chg = (cur - start).toFixed(1);
+    document.getElementById('bwCurrent').textContent = cur + ' lbs';
+    document.getElementById('bwStart').textContent = start + ' lbs';
+    document.getElementById('bwLow').textContent = low + ' lbs';
+    const cel = document.getElementById('bwChange');
+    cel.textContent = (chg > 0 ? '+' : '') + chg + ' lbs';
+    cel.className = 'sval ' + (chg > 0 ? 'up' : 'down');
+}
+
+async function renderBWHistory() {
+    const log = (await getBW()).slice().reverse();
+    const c = document.getElementById('bwHistory');
+    if (!log.length) { c.innerHTML = '<div class="empty-state">No entries yet.</div>'; return; }
+    c.innerHTML = log.slice(0,12).map(e =>
+        `<div class="log-entry">
+            <span class="entry-date">${fmtDate(e.date)}</span>
+            <span class="entry-val">${e.weight} lbs</span>
+            <button class="entry-del" onclick="deleteBW('${e.date}')">×</button>
+        </div>`
+    ).join('');
+}
+
+async function renderBWChart() {
+    const log = await getBW();
+    const canvas = document.getElementById('bwChart');
+    canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);
+    if (log.length < 2) return;
+    drawChart(canvas, log.map(e=>fmtDate(e.date)), log.map(e=>e.weight), '#667eea', 'Bodyweight (lbs)');
+}
+
+// ─── EXERCISE LOG ─────────────────────────────────────────────────
+async function getEx() { return (await sGet('exLog')) || {}; }
+
+async function logExercise() {
+    const ex = document.getElementById('exerciseSelect').value;
+    const date = document.getElementById('exDate').value;
+    const weight = parseFloat(document.getElementById('exWeight').value);
+    const sr = document.getElementById('exSetsReps').value.trim();
+    if (!date || isNaN(weight) || weight < 0) return alert('Enter a valid date and weight.');
+    const log = await getEx();
+    if (!log[ex]) log[ex] = [];
+    const i = log[ex].findIndex(e => e.date === date);
+    const entry = {date, weight, sr};
+    if (i >= 0) log[ex][i] = entry; else log[ex].push(entry);
+    log[ex].sort((a,b) => a.date.localeCompare(b.date));
+    await sSet('exLog', log);
+    document.getElementById('exWeight').value = '';
+    document.getElementById('exSetsReps').value = '';
+    renderExerciseHistory();
+}
+window.logExercise = logExercise;
+
+async function deleteEx(ex, date) {
+    const log = await getEx();
+    if (log[ex]) { log[ex] = log[ex].filter(e => e.date !== date); if(!log[ex].length) delete log[ex]; }
+    await sSet('exLog', log);
+    renderExerciseHistory();
+}
+window.deleteEx = deleteEx;
+
+async function renderExerciseHistory() {
+    const ex = document.getElementById('exerciseSelect').value;
+    const entries = ((await getEx())[ex] || []);
+    const canvas = document.getElementById('exChart');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    if (entries.length > 1) drawChart(canvas, entries.map(e=>fmtDate(e.date)), entries.map(e=>e.weight), '#764ba2', ex + ' — lbs over time');
+    const c = document.getElementById('exHistory');
+    if (!entries.length) { c.innerHTML = '<div class="empty-state">No entries yet for ' + ex + '.</div>'; return; }
+    const maxW = Math.max(...entries.map(e=>e.weight));
+    c.innerHTML = entries.slice().reverse().map(e =>
+        `<div class="log-entry">
+            <span class="entry-date">${fmtDate(e.date)}</span>
+            <span class="entry-val">${e.weight} lbs${e.sr?' <span style="color:#718096;font-weight:400;">@ '+e.sr+'</span>':''}${e.weight===maxW?'<span class="pr-badge">PR</span>':''}</span>
+            <button class="entry-del" onclick="deleteEx('${ex}','${e.date}')">×</button>
+        </div>`
+    ).join('');
+}
+
+// ─── MY WEIGHTS ───────────────────────────────────────────────────
+const LOWER_MON = ['Hip Thrusts','Bulgarian Split Squats','Sumo Goblet Squats','Cable Kickbacks','Lying Leg Curls','Abductor Machine','Standing Calf Raises','Pallof Press'];
+const LOWER_THU = ['Romanian Deadlifts','Front/Goblet Squats','Walking Lunges','Single-Leg RDLs','Leg Press','Leg Curls','Seated Calf Raises','Hanging Knee Raises'];
+const UPPER_EXERCISES = ['Overhead Press','Incline DB Press','Pull-Ups','Cable Rows','Single-Arm Rows','Lateral Raises','Face Pulls','Reverse Flyes','Bicep Curls','Tricep Pushdowns','Shrugs'];
+
+async function renderMyWeights() {
+    const log = await getEx();
+    function buildGrid(containerId, exercises) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = exercises.map(ex => {
+            const entries = log[ex] || [];
+            const latest = entries.length ? entries[entries.length - 1] : null;
+            const hasData = !!latest;
+            return `<div class="mw-card ${hasData ? '' : 'no-data'}">
+                <div class="mw-name">${ex}</div>
+                <div class="mw-weight ${hasData ? '' : 'empty'}">${hasData ? latest.weight + ' <span style="font-size:13px;font-weight:500;color:#a0aec0;">lbs</span>' : 'Not logged'}</div>
+                ${hasData ? `<div class="mw-meta">${latest.sr ? latest.sr + ' &nbsp;•&nbsp; ' : ''}${fmtDate(latest.date)}</div>` : ''}
+            </div>`;
+        }).join('');
+    }
+    buildGrid('mw-lower-mon', LOWER_MON);
+    buildGrid('mw-lower-thu', LOWER_THU);
+    buildGrid('mw-upper', UPPER_EXERCISES);
+}
+
+// ─── CHART ────────────────────────────────────────────────────────
+function drawChart(canvas, labels, data, color, title) {
+    const W = canvas.parentElement.offsetWidth || 600;
+    const H = parseInt(canvas.getAttribute('height')) || 140;
+    canvas.width = W * 2; canvas.height = H * 2;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(2,2);
+    const pad = {top:28, right:16, bottom:36, left:48};
+    const w = W - pad.left - pad.right;
+    const h = H - pad.top - pad.bottom;
+    const min = Math.min(...data) * 0.96;
+    const max = Math.max(...data) * 1.04;
+    ctx.fillStyle = '#f7fafc'; ctx.fillRect(0,0,W,H);
+    ctx.fillStyle = '#4a5568'; ctx.font = '600 11px system-ui'; ctx.textAlign = 'left';
+    ctx.fillText(title, pad.left, 18);
+    for (let i=0; i<=4; i++) {
+        const y = pad.top + h - (i/4)*h;
+        ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(pad.left,y); ctx.lineTo(pad.left+w,y); ctx.stroke();
+        ctx.fillStyle = '#a0aec0'; ctx.font = '9px system-ui'; ctx.textAlign = 'right';
+        ctx.fillText(((min+(max-min)*(i/4))).toFixed(1), pad.left-4, y+3);
+    }
+    if (data.length < 2) return;
+    const xS = w / (data.length-1);
+    const yS = v => pad.top + h - ((v-min)/(max-min))*h;
+    const grad = ctx.createLinearGradient(0,pad.top,0,pad.top+h);
+    grad.addColorStop(0, color+'55'); grad.addColorStop(1, color+'00');
+    ctx.beginPath();
+    ctx.moveTo(pad.left, yS(data[0]));
+    data.forEach((v,i) => ctx.lineTo(pad.left+i*xS, yS(v)));
+    ctx.lineTo(pad.left+(data.length-1)*xS, pad.top+h);
+    ctx.lineTo(pad.left, pad.top+h);
+    ctx.closePath(); ctx.fillStyle = grad; ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(pad.left, yS(data[0]));
+    data.forEach((v,i) => ctx.lineTo(pad.left+i*xS, yS(v)));
+    ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.lineJoin = 'round'; ctx.stroke();
+    data.forEach((v,i) => {
+        ctx.beginPath(); ctx.arc(pad.left+i*xS, yS(v), 4, 0, Math.PI*2);
+        ctx.fillStyle = color; ctx.fill();
+        ctx.strokeStyle = 'white'; ctx.lineWidth = 2; ctx.stroke();
+    });
+    const step = Math.max(1, Math.floor(labels.length/6));
+    labels.forEach((l,i) => {
+        if (i%step!==0 && i!==labels.length-1) return;
+        ctx.fillStyle = '#a0aec0'; ctx.font = '9px system-ui'; ctx.textAlign = 'center';
+        ctx.fillText(l, pad.left+i*xS, pad.top+h+14);
+    });
+}
+
+// ─── UTILS ────────────────────────────────────────────────────────
+function fmtDate(d) {
+    const [y,m,day] = d.split('-');
+    return m+'/'+day+'/'+y.slice(2);
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('bwDate').value = today;
+    document.getElementById('exDate').value = today;
+    await renderCycle();
+    await renderBWStats();
+    await renderBWHistory();
+    await renderBWChart();
+    await renderExerciseHistory();
+});
+</script>
+
+</body>
+</html>
