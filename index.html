@@ -6,32 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Ry Protocol</title>
     <style>
-        * { box-sizing: border-box; }
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #D4B896 0%, #A0826D 100%);
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-        .header {
-            background: linear-gradient(135deg, #C9A882 0%, #8B6B4A 100%);
-            color: white;
-            padding: 25px;
-            text-align: center;
-        }
-        .header h1 { margin: 0 0 5px; }
-        .header p { margin: 0; opacity: 0.85; font-size: 14px; }
 
 ```
+    /* ── RESET & BASE ─────────────────────────────────────────── */
+    * { box-sizing: border-box; }
+
+    body {
+        font-family: system-ui, -apple-system, sans-serif;
+        background: linear-gradient(135deg, #D4B896 0%, #A0826D 100%);
+        margin: 0;
+        padding: 20px;
+        min-height: 100vh;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    /* ── HEADER ───────────────────────────────────────────────── */
+    .header {
+        background: linear-gradient(135deg, #C9A882 0%, #8B6B4A 100%);
+        color: white;
+        padding: 25px;
+        text-align: center;
+    }
+    .header h1 { margin: 0 0 5px; }
+    .header p  { margin: 0; opacity: 0.85; font-size: 14px; }
+
+    /* ── CYCLE BANNER ─────────────────────────────────────────── */
     .cycle-banner {
         background: #3D2B1A;
         color: white;
@@ -44,50 +51,63 @@
     }
     .cycle-label { font-size: 12px; color: #D4B896; text-transform: uppercase; letter-spacing: 1px; }
     .cycle-week-display { font-size: 20px; font-weight: 700; }
-    .cycle-week-display.deload { color: #A8C87A; }
+    .cycle-week-display.deload       { color: #A8C87A; }
     .cycle-week-display.accumulation { color: #E8C99A; }
+
     .cycle-pips { display: flex; gap: 8px; align-items: center; }
     .pip {
-        width: 28px; height: 28px; border-radius: 50%;
+        width: 28px; height: 28px;
+        border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
-        font-size: 11px; font-weight: 700; cursor: pointer;
-        transition: all 0.2s;
+        font-size: 11px; font-weight: 700;
+        cursor: pointer; transition: all 0.2s;
     }
-    .pip.acc { background: #7A5C3A; color: #F0DEC0; }
-    .pip.acc.current { background: #C9A882; color: white; transform: scale(1.2); }
-    .pip.dl { background: #2d3a1e; color: #A8C87A; }
-    .pip.dl.current { background: #6B8F3E; color: white; transform: scale(1.2); }
+    .pip.acc          { background: #7A5C3A; color: #F0DEC0; }
+    .pip.acc.current  { background: #C9A882; color: white; transform: scale(1.2); }
+    .pip.dl           { background: #2d3a1e; color: #A8C87A; }
+    .pip.dl.current   { background: #6B8F3E; color: white; transform: scale(1.2); }
+
     .cycle-controls { display: flex; gap: 8px; }
     .cycle-btn {
-        padding: 6px 14px; border-radius: 6px; border: none; cursor: pointer;
+        padding: 6px 14px; border-radius: 6px;
+        border: none; cursor: pointer;
         font-size: 13px; font-weight: 600;
     }
     .cycle-btn.prev { background: #5C4030; color: #E8D0B0; }
     .cycle-btn.next { background: #C9A882; color: white; }
 
+    /* ── TABS ─────────────────────────────────────────────────── */
     .tabs { display: flex; background: #F5EDE0; overflow-x: auto; }
     .tab {
-        flex: 1; min-width: 80px; padding: 14px 8px;
-        text-align: center; cursor: pointer; font-weight: 600;
-        border: none; background: transparent; color: #718096;
+        flex: 1; min-width: 80px;
+        padding: 14px 8px;
+        text-align: center; cursor: pointer;
+        font-weight: 600; border: none;
+        background: transparent; color: #718096;
         font-size: 13px; white-space: nowrap;
     }
-    .tab.active { background: white; color: #A07850; border-bottom: 3px solid #C9A882; }
+    .tab.active {
+        background: white; color: #A07850;
+        border-bottom: 3px solid #C9A882;
+    }
 
+    /* ── CONTENT AREA ─────────────────────────────────────────── */
     .content { padding: 25px; background: #FDFAF5; }
     .page { display: none; }
     .page.active { display: block; }
 
+    /* ── DAY GRID ─────────────────────────────────────────────── */
     .day-grid {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
-        gap: 8px;
-        margin: 20px 0;
+        gap: 8px; margin: 20px 0;
     }
     .day-btn {
-        padding: 10px 4px; border: 2px solid #e2e8f0;
-        border-radius: 8px; background: white; cursor: pointer;
-        text-align: center; font-weight: 600; font-size: 11px;
+        padding: 10px 4px;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px; background: white;
+        cursor: pointer; text-align: center;
+        font-weight: 600; font-size: 11px;
         transition: all 0.2s; line-height: 1.4;
     }
     .day-btn.active {
@@ -99,107 +119,244 @@
         background: linear-gradient(135deg, #6B8F3E 0%, #4A6B2E 100%);
         color: white;
     }
+    .day-btn.run-day { border-color: #A8C8E8; color: #2A5A7A; }
+    .day-btn.run-day.active {
+        background: linear-gradient(135deg, #4A8FB5 0%, #2A5A7A 100%);
+        color: white;
+    }
+
     .workout { display: none; }
     .workout.active { display: block; }
 
+    /* ── CONTENT BLOCKS ───────────────────────────────────────── */
     .exercise {
-        background: #FAF5EE; padding: 15px; margin: 10px 0;
-        border-radius: 8px; border-left: 4px solid #D4B896;
+        background: #FAF5EE; padding: 15px;
+        margin: 10px 0; border-radius: 8px;
+        border-left: 4px solid #D4B896;
+    }
+    .run-block {
+        background: #EEF5FA; padding: 15px;
+        margin: 10px 0; border-radius: 8px;
+        border-left: 4px solid #4A8FB5;
+        line-height: 1.7;
     }
     .info-box {
-        background: #FAF3E8; padding: 15px; margin: 15px 0;
-        border-radius: 8px; border-left: 4px solid #D4B896;
+        background: #FAF3E8; padding: 15px;
+        margin: 15px 0; border-radius: 8px;
+        border-left: 4px solid #D4B896;
     }
     .rest-box {
-        background: #F0F5E8; padding: 15px; margin: 15px 0;
-        border-radius: 8px; border-left: 4px solid #6B8F3E;
+        background: #F0F5E8; padding: 15px;
+        margin: 15px 0; border-radius: 8px;
+        border-left: 4px solid #6B8F3E;
     }
     .schedule-note {
         background: #FAF0E0; border-left: 4px solid #D4B896;
-        padding: 12px 15px; border-radius: 8px; margin: 15px 0; font-size: 14px;
+        padding: 12px 15px; border-radius: 8px;
+        margin: 15px 0; font-size: 14px;
     }
+
+    /* ── TAGS ─────────────────────────────────────────────────── */
     .tag {
-        display: inline-block; padding: 3px 10px; border-radius: 20px;
-        font-size: 12px; font-weight: 600; margin-left: 8px; vertical-align: middle;
+        display: inline-block; padding: 3px 10px;
+        border-radius: 20px; font-size: 12px;
+        font-weight: 600; margin-left: 8px;
+        vertical-align: middle;
     }
     .tag-strength { background: #EDE0CC; color: #7A5C3A; }
-    .tag-martial { background: #E8C9A8; color: #7A3A20; }
-    .tag-cardio { background: #E8D8C0; color: #5C4A2A; }
-    .tag-rest { background: #D8EAB8; color: #3A5A1E; }
+    .tag-martial  { background: #E8C9A8; color: #7A3A20; }
+    .tag-run      { background: #C8E0F0; color: #2A5A7A; }
+    .tag-rest     { background: #D8EAB8; color: #3A5A1E; }
 
+    /* ── FORMS & BUTTONS ──────────────────────────────────────── */
     .log-form {
-        display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 12px;
+        display: flex; gap: 8px;
+        align-items: center; flex-wrap: wrap;
+        margin-bottom: 12px;
     }
-    .log-form input, .log-form select {
-        padding: 8px 10px; border: 2px solid #e2e8f0; border-radius: 6px;
-        font-size: 14px; flex: 1; min-width: 90px;
+    .log-form input,
+    .log-form select {
+        padding: 8px 10px;
+        border: 2px solid #e2e8f0;
+        border-radius: 6px; font-size: 14px;
+        flex: 1; min-width: 90px;
     }
-    .log-form input:focus, .log-form select:focus { outline: none; border-color: #C9A882; }
+    .log-form input:focus,
+    .log-form select:focus {
+        outline: none; border-color: #C9A882;
+    }
     .log-btn {
-        padding: 8px 18px; background: linear-gradient(135deg, #C9A882 0%, #8B6B4A 100%);
-        color: white; border: none; border-radius: 6px; cursor: pointer;
-        font-weight: 600; font-size: 14px; white-space: nowrap;
+        padding: 8px 18px;
+        background: linear-gradient(135deg, #C9A882 0%, #8B6B4A 100%);
+        color: white; border: none;
+        border-radius: 6px; cursor: pointer;
+        font-weight: 600; font-size: 14px;
+        white-space: nowrap;
     }
     .log-btn:hover { opacity: 0.9; }
 
+    /* ── LOG ENTRIES ──────────────────────────────────────────── */
     .log-entry {
-        display: flex; justify-content: space-between; align-items: center;
-        padding: 8px 12px; background: #FAF5EE; border-radius: 6px; margin: 4px 0;
-        font-size: 13px;
+        display: flex; justify-content: space-between;
+        align-items: center; padding: 8px 12px;
+        background: #FAF5EE; border-radius: 6px;
+        margin: 4px 0; font-size: 13px;
     }
     .log-entry .entry-date { color: #718096; min-width: 60px; }
-    .log-entry .entry-val { font-weight: 700; color: #2d3748; flex: 1; padding: 0 10px; }
-    .log-entry .entry-del {
-        background: none; border: none; color: #fc8181; cursor: pointer;
+    .log-entry .entry-val  { font-weight: 700; color: #2d3748; flex: 1; padding: 0 10px; }
+    .log-entry .entry-del  {
+        background: none; border: none;
+        color: #fc8181; cursor: pointer;
         font-size: 18px; padding: 0 4px; line-height: 1;
     }
-    .empty-state { color: #a0aec0; font-size: 13px; font-style: italic; padding: 10px 0; }
-
-    .stats-row {
-        display: flex; gap: 15px; flex-wrap: wrap; margin: 12px 0;
+    .empty-state {
+        color: #a0aec0; font-size: 13px;
+        font-style: italic; padding: 10px 0;
     }
+
+    /* ── STATS ROW ────────────────────────────────────────────── */
+    .stats-row { display: flex; gap: 15px; flex-wrap: wrap; margin: 12px 0; }
     .stat-box {
-        background: #FAF5EE; border-radius: 8px; padding: 12px 16px;
-        text-align: center; flex: 1; min-width: 80px;
+        background: #FAF5EE; border-radius: 8px;
+        padding: 12px 16px; text-align: center;
+        flex: 1; min-width: 80px;
     }
-    .stat-box .slabel { font-size: 11px; color: #a0aec0; text-transform: uppercase; letter-spacing: 0.5px; }
-    .stat-box .sval { font-size: 20px; font-weight: 700; color: #2d3748; margin-top: 2px; }
+    .stat-box .slabel {
+        font-size: 11px; color: #a0aec0;
+        text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .stat-box .sval {
+        font-size: 20px; font-weight: 700;
+        color: #2d3748; margin-top: 2px;
+    }
     .stat-box .sval.down { color: #6B8F3E; }
-    .stat-box .sval.up { color: #e53e3e; }
+    .stat-box .sval.up   { color: #e53e3e; }
 
+    /* ── CANVAS ───────────────────────────────────────────────── */
     canvas { width: 100% !important; border-radius: 8px; display: block; margin: 10px 0; }
 
+    /* ── MY WEIGHTS GRID ──────────────────────────────────────── */
     .mw-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-        gap: 10px;
-        margin-bottom: 10px;
+        gap: 10px; margin-bottom: 10px;
     }
     .mw-card {
-        background: #FAF5EE;
-        border-radius: 10px;
-        padding: 14px;
-        border-left: 4px solid #D4B896;
+        background: #FAF5EE; border-radius: 10px;
+        padding: 14px; border-left: 4px solid #D4B896;
         transition: transform 0.15s;
     }
     .mw-card:hover { transform: translateY(-2px); }
     .mw-card.no-data { border-left-color: #e2e8f0; opacity: 0.6; }
-    .mw-card .mw-name { font-size: 12px; color: #718096; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 6px; }
-    .mw-card .mw-weight { font-size: 24px; font-weight: 800; color: #2d3748; line-height: 1; }
+    .mw-card .mw-name {
+        font-size: 12px; color: #718096; font-weight: 600;
+        text-transform: uppercase; letter-spacing: 0.4px;
+        margin-bottom: 6px;
+    }
+    .mw-card .mw-weight {
+        font-size: 24px; font-weight: 800;
+        color: #2d3748; line-height: 1;
+    }
     .mw-card .mw-weight.empty { font-size: 16px; color: #cbd5e0; font-weight: 400; }
     .mw-card .mw-meta { font-size: 11px; color: #a0aec0; margin-top: 4px; }
-        display: inline-block; background: #EDD9B0; color: #7A5C3A;
-        padding: 1px 7px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-left: 6px;
+
+    /* ── PR BADGE ─────────────────────────────────────────────── */
+    .pr-badge {
+        display: inline-block; background: #EDD9B0;
+        color: #7A5C3A; padding: 1px 7px;
+        border-radius: 20px; font-size: 11px;
+        font-weight: 700; margin-left: 6px;
     }
 
+    /* ── TYPOGRAPHY ───────────────────────────────────────────── */
     .section-header { color: #2d3748; margin: 20px 0 10px; font-size: 17px; font-weight: 700; }
     h2 { color: #2d3748; margin-top: 5px; }
     h3 { color: #4a5568; margin: 15px 0 8px; }
 
+    /* ── NUTRITION: RULE CARDS ────────────────────────────────── */
+    .rule-card {
+        background: #FAF5EE; border-radius: 10px;
+        padding: 16px; margin: 10px 0;
+        border-left: 4px solid #C9A882;
+        display: flex; gap: 14px; align-items: flex-start;
+    }
+    .rule-num {
+        background: linear-gradient(135deg, #C9A882, #8B6B4A);
+        color: white; border-radius: 50%;
+        width: 28px; height: 28px;
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 800; font-size: 13px;
+        flex-shrink: 0; margin-top: 1px;
+    }
+    .rule-body strong { color: #5C3D2E; display: block; margin-bottom: 3px; font-size: 14px; }
+    .rule-body span   { color: #718096; font-size: 13px; line-height: 1.5; }
+
+    /* ── NUTRITION: MEAL PLAN ─────────────────────────────────── */
+    .meal-week-tabs { display: flex; gap: 8px; margin: 15px 0 10px; flex-wrap: wrap; }
+    .week-tab {
+        padding: 7px 18px; border-radius: 20px;
+        border: 2px solid #D4B896; background: white;
+        color: #A07850; font-weight: 700;
+        font-size: 13px; cursor: pointer; transition: all 0.2s;
+    }
+    .week-tab.active {
+        background: linear-gradient(135deg, #C9A882, #8B6B4A);
+        color: white; border-color: transparent;
+    }
+    .meal-week { display: none; }
+    .meal-week.active { display: block; }
+
+    .meal-day {
+        background: white; border-radius: 10px;
+        margin: 10px 0; border: 1px solid #EDE0CC; overflow: hidden;
+    }
+    .meal-day-header {
+        background: linear-gradient(135deg, #F5EDE0, #EDD9C0);
+        padding: 10px 16px; font-weight: 700;
+        color: #5C3D2E; font-size: 13px;
+        display: flex; justify-content: space-between;
+        align-items: center; cursor: pointer; user-select: none;
+    }
+    .meal-day-header .day-label {
+        font-size: 11px; color: #A07850;
+        font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .meal-day-body { padding: 12px 16px; display: none; }
+    .meal-day-body.open { display: block; }
+
+    .meal-row {
+        display: flex; gap: 10px;
+        padding: 8px 0; border-bottom: 1px solid #F5EDE0;
+        align-items: flex-start;
+    }
+    .meal-row:last-child { border-bottom: none; }
+    .meal-time {
+        font-size: 11px; font-weight: 700; color: #C9A882;
+        text-transform: uppercase; letter-spacing: 0.5px;
+        min-width: 70px; padding-top: 2px;
+    }
+    .meal-detail { flex: 1; }
+    .meal-name   { font-weight: 600; color: #2d3748; font-size: 14px; }
+    .meal-note   { font-size: 12px; color: #718096; margin-top: 2px; line-height: 1.4; }
+    .meal-macros { font-size: 11px; color: #A07850; margin-top: 3px; font-weight: 600; }
+
+    .snack-tag {
+        font-size: 10px; background: #EDE0CC; color: #7A5C3A;
+        padding: 1px 7px; border-radius: 10px;
+        font-weight: 700; margin-left: 6px; vertical-align: middle;
+    }
+    .restaurant-tag {
+        font-size: 10px; background: #D8EAF5; color: #2A5A7A;
+        padding: 1px 7px; border-radius: 10px;
+        font-weight: 700; margin-left: 6px; vertical-align: middle;
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────────────── */
     @media (max-width: 580px) {
         .day-grid { grid-template-columns: repeat(4, 1fr); }
         .cycle-banner { flex-direction: column; align-items: flex-start; }
     }
+
 </style>
 ```
 
@@ -208,11 +365,13 @@
 <div class="container">
 
 ```
+<!-- ── HEADER ──────────────────────────────────────────────── -->
 <div class="header">
     <h1>The Ry Protocol</h1>
-    <p>Kung Fu &nbsp;•&nbsp; Muay Thai &nbsp;•&nbsp; Strength &nbsp;•&nbsp; Solidcore — Track Athlete Optimized</p>
+    <p>Kung Fu &nbsp;•&nbsp; Muay Thai &nbsp;•&nbsp; Strength &nbsp;•&nbsp; Solidcore &nbsp;•&nbsp; Running</p>
 </div>
 
+<!-- ── CYCLE BANNER ────────────────────────────────────────── -->
 <div class="cycle-banner">
     <div>
         <div class="cycle-label">Cycle Week</div>
@@ -225,141 +384,284 @@
     </div>
 </div>
 
+<!-- ── TABS ────────────────────────────────────────────────── -->
 <div class="tabs">
-    <button class="tab active" onclick="showTab('training',event)">Training</button>
-    <button class="tab" onclick="showTab('myweights',event)">My Weights</button>
-    <button class="tab" onclick="showTab('tracker',event)">Body Weight</button>
-    <button class="tab" onclick="showTab('exlog',event)">Exercise Log</button>
-    <button class="tab" onclick="showTab('nutrition',event)">Nutrition</button>
-    <button class="tab" onclick="showTab('progress',event)">Progress</button>
-    <button class="tab" onclick="showTab('photos',event)">Photos</button>
+    <button class="tab active" onclick="showTab('training', event)">Training</button>
+    <button class="tab"        onclick="showTab('myweights', event)">My Weights</button>
+    <button class="tab"        onclick="showTab('tracker', event)">Body Weight</button>
+    <button class="tab"        onclick="showTab('exlog', event)">Exercise Log</button>
+    <button class="tab"        onclick="showTab('nutrition', event)">Nutrition</button>
+    <button class="tab"        onclick="showTab('progress', event)">Progress</button>
+    <button class="tab"        onclick="showTab('photos', event)">Photos</button>
 </div>
 
 <div class="content">
 
-    <!-- TRAINING -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!--  TRAINING TAB                                          -->
+    <!-- ══════════════════════════════════════════════════════ -->
     <div id="training" class="page active">
+
         <div class="info-box">
-            <strong>Daily Non-Negotiables:</strong>&nbsp; 8,000–10,000 steps &nbsp;•&nbsp; 1 gallon water &nbsp;•&nbsp; 140–160g protein
-        </div>
-        <div class="schedule-note">
-            <strong>Schedule Notes:</strong> Strength before skill on all paired days. Muay Thai currently foundations-level — reassess lower body spacing when transitioning to advanced classes.
-        </div>
-        <div class="day-grid">
-            <button class="day-btn active" onclick="showDay('mon',event)">MON<br><small>Lower+KF</small></button>
-            <button class="day-btn" onclick="showDay('tue',event)">TUE<br><small>Run+MT</small></button>
-            <button class="day-btn" onclick="showDay('wed',event)">WED<br><small>Muay Thai</small></button>
-            <button class="day-btn" onclick="showDay('thu',event)">THU<br><small>Lower</small></button>
-            <button class="day-btn" onclick="showDay('fri',event)">FRI<br><small>Upper+KF</small></button>
-            <button class="day-btn" onclick="showDay('sat',event)">SAT<br><small>Solidcore</small></button>
-            <button class="day-btn rest-day" onclick="showDay('sun',event)">SUN<br><small>Rest</small></button>
+            <strong>Daily Non-Negotiables:</strong>&nbsp;
+            8,000–10,000 steps &nbsp;•&nbsp; 1 gallon water &nbsp;•&nbsp; 140–160g protein
         </div>
 
+        <div class="schedule-note">
+            <strong>Schedule Notes:</strong> Strength before skill on all paired days.
+            Running added Thu / Sat / Sun for weight loss optimization.
+            Thursday lower body trimmed to accommodate post-lift run.
+            Muay Thai currently foundations-level — reassess lower body spacing when advancing.
+        </div>
+
+        <div class="day-grid">
+            <button class="day-btn active"           onclick="showDay('mon', event)">MON<br><small>Lower+KF</small></button>
+            <button class="day-btn run-day"          onclick="showDay('tue', event)">TUE<br><small>Run+MT</small></button>
+            <button class="day-btn"                  onclick="showDay('wed', event)">WED<br><small>Muay Thai</small></button>
+            <button class="day-btn run-day"          onclick="showDay('thu', event)">THU<br><small>Lower+Run</small></button>
+            <button class="day-btn"                  onclick="showDay('fri', event)">FRI<br><small>Upper+KF</small></button>
+            <button class="day-btn run-day"          onclick="showDay('sat', event)">SAT<br><small>Solidcore+Run</small></button>
+            <button class="day-btn rest-day run-day" onclick="showDay('sun', event)">SUN<br><small>Recovery Run</small></button>
+        </div>
+
+        <!-- MONDAY -->
         <div id="mon" class="workout active">
-            <h2>MONDAY — Lower Body + Kung Fu <span class="tag tag-strength">Strength</span><span class="tag tag-martial">Martial</span></h2>
-            <div class="info-box">Strength first while fresh. Coming off Sunday rest — push lower body hard today.</div>
-            <div class="exercise"><strong>Pre-Training:</strong> Snack 60–90 min before (rice cakes + almond butter, dates, oats)</div>
-            <h3>Lower Body (24 Sets)</h3>
-            <div class="exercise"><strong>1. Hip Thrusts:</strong> 4x10–12, Rest 2–3 min. Heavy. Primary glute builder.</div>
-            <div class="exercise"><strong>2. Bulgarian Split Squats:</strong> 3x10–12 each, Rest 90 sec</div>
-            <div class="exercise"><strong>3. Sumo Goblet Squats:</strong> 3x12–15, Rest 90 sec</div>
-            <div class="exercise"><strong>4. Cable Kickbacks:</strong> 3x12–15 each, Rest 60 sec</div>
-            <div class="exercise"><strong>5. Lying Leg Curls:</strong> 3x12–15, Rest 60 sec</div>
-            <div class="exercise"><strong>6. Abductor Machine:</strong> 2x15–20, Rest 60 sec</div>
-            <div class="exercise"><strong>7. Standing Calf Raises:</strong> 3x15–20, Rest 45 sec</div>
-            <div class="exercise"><strong>8. Pallof Press:</strong> 3x12 each side, Rest 60 sec</div>
+            <h2>MONDAY — Lower Body + Kung Fu
+                <span class="tag tag-strength">Strength</span>
+                <span class="tag tag-martial">Martial</span>
+            </h2>
+            <div class="info-box">
+                Strength first while fresh. Coming off Sunday's easy run — legs will be loose and primed.
+                Push lower body hard today.
+            </div>
+            <div class="exercise">
+                <strong>Pre-Training Snack</strong> (60–90 min before):
+                Rice cakes + almond butter, overnight oats, or Greek yogurt + berries
+            </div>
+            <h3>Lower Body — Glute Focus (24 Sets)</h3>
+            <div class="exercise"><strong>1. Hip Thrusts:</strong> 4×10–12. Rest 2–3 min. Heavy. Primary glute builder.</div>
+            <div class="exercise"><strong>2. Bulgarian Split Squats:</strong> 3×10–12 each. Rest 90 sec.</div>
+            <div class="exercise"><strong>3. Sumo Goblet Squats:</strong> 3×12–15. Rest 90 sec.</div>
+            <div class="exercise"><strong>4. Cable Kickbacks:</strong> 3×12–15 each. Rest 60 sec.</div>
+            <div class="exercise"><strong>5. Lying Leg Curls:</strong> 3×12–15. Rest 60 sec.</div>
+            <div class="exercise"><strong>6. Abductor Machine:</strong> 2×15–20. Rest 60 sec.</div>
+            <div class="exercise"><strong>7. Standing Calf Raises:</strong> 3×15–20. Rest 45 sec.</div>
+            <div class="exercise"><strong>8. Pallof Press:</strong> 3×12 each side. Rest 60 sec.</div>
             <h3>Kung Fu</h3>
             <div class="exercise">Traditional forms and technique drilling. Skill focus, not combat intensity.</div>
         </div>
 
+        <!-- TUESDAY -->
         <div id="tue" class="workout">
-            <h2>TUESDAY — Run + Muay Thai <span class="tag tag-cardio">Cardio</span><span class="tag tag-martial">Martial</span></h2>
-            <div class="info-box">30 min run first. Muay Thai foundations after. Pace the run to preserve quality for class.</div>
-            <div class="exercise"><strong>Run:</strong> 30 minutes. Steady state or intervals depending on energy.</div>
-            <div class="exercise"><strong>Muay Thai (Foundations):</strong> Technical drilling, basic combinations, stance work.</div>
+            <h2>TUESDAY — Run + Muay Thai
+                <span class="tag tag-run">Run</span>
+                <span class="tag tag-martial">Martial</span>
+            </h2>
+            <div class="info-box">
+                Primary run day. Structured intervals extended to 40 min.
+                Muay Thai foundations after — pace the run to preserve quality for class.
+            </div>
+            <div class="run-block">
+                <strong>Run — 40 min (Interval Structure)</strong><br><br>
+                <strong>Warm-up:</strong> 5 min easy jog<br>
+                <strong>Tempo block:</strong> 20 min comfortably hard — can speak in short phrases only<br>
+                <strong>Intervals:</strong> 6×400m at strong pace, 90 sec recovery jog between each<br>
+                <strong>Cool-down:</strong> 5 min easy jog<br><br>
+                <em>Deload weeks: replace entire structure with 40 min steady state. No 400s.</em>
+            </div>
+            <div class="exercise">
+                <strong>Muay Thai (Foundations):</strong> Technical drilling, basic combinations, stance work.
+                Back-to-back with run — technique over output.
+            </div>
         </div>
 
+        <!-- WEDNESDAY -->
         <div id="wed" class="workout">
-            <h2>WEDNESDAY — Muay Thai <span class="tag tag-martial">Martial</span></h2>
-            <div class="info-box">Standalone Muay Thai. Thursday rest follows — push technique today.</div>
-            <div class="exercise"><strong>Muay Thai (Foundations):</strong> Second session of the week. Full focus on technique and combinations.</div>
+            <h2>WEDNESDAY — Muay Thai
+                <span class="tag tag-martial">Martial</span>
+            </h2>
+            <div class="info-box">
+                Standalone Muay Thai. No run today — legs recovering from Tuesday intervals.
+                Two run days ahead (Thu + Sat) so manage recovery aggressively.
+            </div>
+            <div class="exercise">
+                <strong>Muay Thai (Foundations):</strong> Second class of the week.
+                Full focus on technique and combination flow.
+            </div>
+            <div class="rest-box">
+                <strong>Active Recovery:</strong> 10 min stretch post-class.
+                Hydrate aggressively — Thursday is a double day (lift + run).
+            </div>
         </div>
 
+        <!-- THURSDAY -->
         <div id="thu" class="workout">
-            <h2>THURSDAY — Lower Body <span class="tag tag-strength">Strength</span></h2>
-            <div class="info-box">Hamstring-dominant day. Complements Monday's glute-dominant session. Three days between lower body days — come in ready to load.</div>
-            <h3>Lower Body (24 Sets)</h3>
-            <div class="exercise"><strong>1. Romanian Deadlifts:</strong> 4x8–10, Rest 2–3 min. Heavy. Primary hamstring builder.</div>
-            <div class="exercise"><strong>2. Front/Goblet Squats:</strong> 3x10–12, Rest 2 min</div>
-            <div class="exercise"><strong>3. Walking Lunges:</strong> 3x12 each, Rest 90 sec</div>
-            <div class="exercise"><strong>4. Single-Leg RDLs:</strong> 2x10–12 each, Rest 90 sec</div>
-            <div class="exercise"><strong>5. Leg Press:</strong> 3x12–15, Rest 90 sec</div>
-            <div class="exercise"><strong>6. Leg Curls:</strong> 3x12–15, Rest 60 sec</div>
-            <div class="exercise"><strong>7. Seated Calf Raises:</strong> 3x15–20, Rest 45 sec</div>
-            <div class="exercise"><strong>8. Hanging Knee Raises:</strong> 3x10–15, Rest 60 sec</div>
-            <div class="rest-box"><strong>Recovery for Friday:</strong> Stretch 15 min &nbsp;•&nbsp; Epsom bath &nbsp;•&nbsp; Hydrate 32+ oz before bed &nbsp;•&nbsp; Sleep 8+ hours</div>
+            <h2>THURSDAY — Lower Body + Run
+                <span class="tag tag-strength">Strength</span>
+                <span class="tag tag-run">Run</span>
+            </h2>
+            <div class="info-box">
+                Hamstring-dominant day, trimmed from 24 to 20 sets to create space for the post-lift run.
+                Lift first — running on warm legs post-strength maximizes fat oxidation.
+                Single-Leg RDLs removed (lowest ROI exercise).
+            </div>
+            <h3>Lower Body — Hamstring Focus (20 Sets)</h3>
+            <div class="exercise"><strong>1. Romanian Deadlifts:</strong> 4×8–10. Rest 2 min. Heavy. Primary hamstring builder.</div>
+            <div class="exercise"><strong>2. Front / Goblet Squats:</strong> 3×10–12. Rest 90 sec.</div>
+            <div class="exercise"><strong>3. Walking Lunges:</strong> 3×12 each. Rest 75 sec.</div>
+            <div class="exercise"><strong>4. Leg Press:</strong> 3×12–15. Rest 90 sec.</div>
+            <div class="exercise"><strong>5. Leg Curls:</strong> 3×12–15. Rest 60 sec.</div>
+            <div class="exercise"><strong>6. Seated Calf Raises:</strong> 3×15–20. Rest 45 sec.</div>
+            <div class="exercise"><strong>7. Hanging Knee Raises:</strong> 3×10–15. Rest 60 sec.</div>
+            <div class="run-block">
+                <strong>Run — 25 min (Zone 2 Steady State)</strong><br><br>
+                Immediately post-lift while still warm. Moderate, fully conversational pace.
+                Heart rate roughly 60–70% max — nose-breathable.
+                Fat-burn focused, not a performance session.<br><br>
+                <em>Deload weeks: cut to 15 min easy walk / jog only.</em>
+            </div>
+            <div class="rest-box">
+                <strong>Recovery Protocol for Friday:</strong>
+                15 min stretch &nbsp;•&nbsp; Epsom bath &nbsp;•&nbsp;
+                32+ oz water before bed &nbsp;•&nbsp; 8+ hours sleep
+            </div>
         </div>
 
+        <!-- FRIDAY -->
         <div id="fri" class="workout">
-            <h2>FRIDAY — Upper Body + Kung Fu <span class="tag tag-strength">Strength</span><span class="tag tag-martial">Martial</span></h2>
-            <div class="info-box">Upper body first while fresh. Longest session — supersetting keeps time efficient. Should feel good off Thursday rest.</div>
+            <h2>FRIDAY — Upper Body + Kung Fu
+                <span class="tag tag-strength">Strength</span>
+                <span class="tag tag-martial">Martial</span>
+            </h2>
+            <div class="info-box">
+                Upper body first while fresh. No run today — legs have Thu and Sat work on either side.
+                Longest session of the week. Supersetting keeps it efficient.
+            </div>
             <h3>Upper Body (38 Sets)</h3>
-            <div class="exercise"><strong>1. Overhead Press:</strong> 4x8–10, Rest 2–3 min</div>
-            <div class="exercise"><strong>2. Incline DB Press:</strong> 3x10–12, Rest 2 min</div>
-            <div class="exercise"><strong>3. Pull-Ups:</strong> 4x8–12, Rest 2 min</div>
-            <div class="exercise"><strong>4. Cable Rows:</strong> 4x10–12, Rest 90 sec</div>
-            <div class="exercise"><strong>5. Single-Arm Rows:</strong> 3x10–12 each, Rest 75 sec</div>
-            <div class="exercise"><strong>6. Lateral Raises:</strong> 4x12–15, Rest 60 sec</div>
-            <div class="exercise"><strong>7. Face Pulls:</strong> 3x15–20, Rest 60 sec</div>
-            <div class="exercise"><strong>8. Reverse Flyes:</strong> 3x12–15, Rest 60 sec</div>
-            <div class="exercise"><strong>9. Bicep Curls:</strong> 3x12–15, Rest 60 sec</div>
-            <div class="exercise"><strong>10. Tricep Pushdowns:</strong> 3x12–15, Rest 60 sec</div>
-            <div class="exercise"><strong>11. Shrugs:</strong> 3x12–15, Rest 90 sec</div>
+            <div class="exercise"><strong>1. Overhead Press:</strong> 4×8–10. Rest 2–3 min.</div>
+            <div class="exercise"><strong>2. Incline DB Press:</strong> 3×10–12. Rest 2 min.</div>
+            <div class="exercise"><strong>3. Pull-Ups:</strong> 4×8–12. Rest 2 min.</div>
+            <div class="exercise"><strong>4. Cable Rows:</strong> 4×10–12. Rest 90 sec.</div>
+            <div class="exercise"><strong>5. Single-Arm Rows:</strong> 3×10–12 each. Rest 75 sec.</div>
+            <div class="exercise"><strong>6. Lateral Raises:</strong> 4×12–15. Rest 60 sec.</div>
+            <div class="exercise"><strong>7. Face Pulls:</strong> 3×15–20. Rest 60 sec.</div>
+            <div class="exercise"><strong>8. Reverse Flyes:</strong> 3×12–15. Rest 60 sec.</div>
+            <div class="exercise"><strong>9. Bicep Curls:</strong> 3×12–15. Rest 60 sec.</div>
+            <div class="exercise"><strong>10. Tricep Pushdowns:</strong> 3×12–15. Rest 60 sec.</div>
+            <div class="exercise"><strong>11. Shrugs:</strong> 3×12–15. Rest 90 sec.</div>
             <h3>Kung Fu</h3>
             <div class="exercise">Traditional forms and technique drilling after upper body.</div>
         </div>
 
+        <!-- SATURDAY -->
         <div id="sat" class="workout">
-            <h2>SATURDAY — Solidcore <span class="tag tag-strength">Core</span></h2>
-            <div class="info-box">Standalone Solidcore. Core and stability dominant. Low-demand going into Sunday rest.</div>
-            <div class="exercise"><strong>Solidcore:</strong> Full class. Core-dominant, stability-focused.</div>
-            <div class="exercise"><strong>Post-Session:</strong> Stretch 15 min. Hydrate well. Tomorrow is rest.</div>
+            <h2>SATURDAY — Solidcore + Run
+                <span class="tag tag-strength">Core</span>
+                <span class="tag tag-run">Run</span>
+            </h2>
+            <div class="info-box">
+                Solidcore first, run immediately after while still warm.
+                Easy pace only — Zone 2 fat burn going into Sunday rest.
+                Not a performance session.
+            </div>
+            <div class="exercise">
+                <strong>Solidcore:</strong> Full class. Core-dominant, stability and posterior chain focus.
+            </div>
+            <div class="run-block">
+                <strong>Run — 20 min (Zone 2 Easy)</strong><br><br>
+                Post-Solidcore. Fully easy conversational pace.
+                Do not push intensity here. Sunday rest follows.<br><br>
+                <em>Deload weeks: skip the run entirely. Rest begins after Solidcore.</em>
+            </div>
+            <div class="exercise">
+                <strong>Post-Session:</strong> Stretch 15 min. Hydrate well. Tomorrow is easy run only.
+            </div>
         </div>
 
+        <!-- SUNDAY -->
         <div id="sun" class="workout">
-            <h2>SUNDAY — Rest Day <span class="tag tag-rest">Rest</span></h2>
+            <h2>SUNDAY — Recovery Run
+                <span class="tag tag-run">Run</span>
+            </h2>
+            <div class="info-box">
+                Aerobic base builder. Easy pace only — this should feel almost too easy.
+                Builds the aerobic engine, accelerates weekly recovery, and creates passive caloric burn
+                without taxing the system for Monday.
+            </div>
+            <div class="run-block">
+                <strong>Run — 30 min (Recovery / Zone 2)</strong><br><br>
+                Fully conversational pace. If you cannot hold a complete sentence, slow down.
+                No intervals. No tempo. Time on feet at low intensity only.<br><br>
+                <em>Deload weeks: replace with 30 min walk only.</em>
+            </div>
             <div class="rest-box">
-                Walk 8–10K steps &nbsp;•&nbsp; Foam roll 15 min &nbsp;•&nbsp; Stretch 15 min &nbsp;•&nbsp; Hydrate full gallon &nbsp;•&nbsp; 8+ hours sleep
+                Post-run: Foam roll 15 min &nbsp;•&nbsp; Stretch 15 min &nbsp;•&nbsp;
+                Hydrate full gallon &nbsp;•&nbsp; 8+ hours sleep
             </div>
             <div class="schedule-note">
-                <strong>Disruption Protocol:</strong> If Sunday rest gets compromised, do not compensate by doubling Monday. Accept the miss, reset the week.
+                <strong>Weekly Running Volume:</strong>
+                Tue 40 min (intervals) + Thu 25 min (Zone 2) + Sat 20 min (Zone 2) + Sun 30 min (recovery)
+                = <strong>115 min / week</strong>
+            </div>
+            <div class="schedule-note">
+                <strong>Disruption Protocol:</strong> If Sunday run gets compromised, accept the miss.
+                Do not compensate by doubling Monday. Reset the week cleanly.
             </div>
         </div>
-    </div>
 
-    <!-- BODY WEIGHT TRACKER -->
+    </div><!-- /training -->
+
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!--  BODY WEIGHT TRACKER TAB                               -->
+    <!-- ══════════════════════════════════════════════════════ -->
     <div id="tracker" class="page">
+
         <h2>Bodyweight Log</h2>
+
         <div class="log-form">
-            <input type="date" id="bwDate">
+            <input type="date"   id="bwDate">
             <input type="number" id="bwValue" placeholder="Weight (lbs)" step="0.1" min="50" max="500">
             <button class="log-btn" onclick="logBodyweight()">Log Weight</button>
         </div>
-        <div class="stats-row" id="bwStats">
-            <div class="stat-box"><div class="slabel">Current</div><div class="sval" id="bwCurrent">—</div></div>
-            <div class="stat-box"><div class="slabel">Starting</div><div class="sval" id="bwStart">—</div></div>
-            <div class="stat-box"><div class="slabel">Change</div><div class="sval" id="bwChange">—</div></div>
-            <div class="stat-box"><div class="slabel">Lowest</div><div class="sval" id="bwLow">—</div></div>
+
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="slabel">Current</div>
+                <div class="sval" id="bwCurrent">—</div>
+            </div>
+            <div class="stat-box">
+                <div class="slabel">Starting</div>
+                <div class="sval" id="bwStart">—</div>
+            </div>
+            <div class="stat-box">
+                <div class="slabel">Change</div>
+                <div class="sval" id="bwChange">—</div>
+            </div>
+            <div class="stat-box">
+                <div class="slabel">Lowest</div>
+                <div class="sval" id="bwLow">—</div>
+            </div>
         </div>
+
         <canvas id="bwChart" height="130"></canvas>
+
         <div class="section-header" style="font-size:14px; color:#718096;">Recent Entries</div>
         <div id="bwHistory"></div>
-    </div>
 
-    <!-- EXERCISE LOG -->
+    </div><!-- /tracker -->
+
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!--  EXERCISE LOG TAB                                      -->
+    <!-- ══════════════════════════════════════════════════════ -->
     <div id="exlog" class="page">
+
         <h2>Exercise Weight Log</h2>
-        <p style="color:#718096; font-size:14px; margin-top:-8px;">Track working weights per exercise. PRs auto-flagged.</p>
+        <p style="color:#718096; font-size:14px; margin-top:-8px;">
+            Track working weights per exercise. PRs auto-flagged.
+        </p>
+
         <div class="log-form">
             <select id="exerciseSelect" onchange="renderExerciseHistory()" style="flex:2; min-width:160px;">
                 <optgroup label="Lower Body — Monday (Glute Focus)">
@@ -376,7 +678,6 @@
                     <option>Romanian Deadlifts</option>
                     <option>Front/Goblet Squats</option>
                     <option>Walking Lunges</option>
-                    <option>Single-Leg RDLs</option>
                     <option>Leg Press</option>
                     <option>Leg Curls</option>
                     <option>Seated Calf Raises</option>
@@ -397,88 +698,955 @@
                 </optgroup>
             </select>
         </div>
+
         <div class="log-form">
-            <input type="date" id="exDate">
-            <input type="number" id="exWeight" placeholder="Weight (lbs)" step="2.5" min="0">
-            <input type="text" id="exSetsReps" placeholder="e.g. 4x10" style="max-width:110px;">
+            <input type="date"   id="exDate">
+            <input type="number" id="exWeight"   placeholder="Weight (lbs)" step="2.5" min="0">
+            <input type="text"   id="exSetsReps" placeholder="e.g. 4x10" style="max-width:110px;">
             <button class="log-btn" onclick="logExercise()">Log</button>
         </div>
+
         <canvas id="exChart" height="140"></canvas>
         <div id="exHistory"></div>
 
-        <h3 style="margin-top:30px; color:#8B6B4A; border-bottom:2px solid #D4B896; padding-bottom:6px;">All-Time PR Feed</h3>
-        <p style="color:#A07850; font-size:13px; margin-top:-4px;">Best weight ever logged per exercise.</p>
+        <h3 style="margin-top:30px; color:#8B6B4A; border-bottom:2px solid #D4B896; padding-bottom:6px;">
+            All-Time PR Feed
+        </h3>
+        <p style="color:#A07850; font-size:13px; margin-top:-4px;">
+            Best weight ever logged per exercise.
+        </p>
         <div id="prFeed"></div>
-    </div>
 
-    <!-- MY WEIGHTS -->
+    </div><!-- /exlog -->
+
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!--  MY WEIGHTS TAB                                        -->
+    <!-- ══════════════════════════════════════════════════════ -->
     <div id="myweights" class="page">
-        <h2>My Current Weights</h2>
-        <p style="color:#718096; font-size:14px; margin-top:-8px;">Most recent logged weight per exercise. Updates automatically as you log in Exercise Log.</p>
-        <h3 style="color:#8B6B4A; border-bottom:2px solid #D4B896; padding-bottom:6px;">Lower Body — Monday (Glute Focus)</h3>
-        <div id="mw-lower-mon" class="mw-grid"></div>
-        <h3 style="color:#8B6B4A; border-bottom:2px solid #D4B896; padding-bottom:6px; margin-top:20px;">Lower Body — Thursday (Hamstring Focus)</h3>
-        <div id="mw-lower-thu" class="mw-grid"></div>
-        <h3 style="color:#8B6B4A; border-bottom:2px solid #D4B896; padding-bottom:6px; margin-top:20px;">Upper Body</h3>
-        <div id="mw-upper" class="mw-grid"></div>
-        <div class="schedule-note" style="margin-top:20px;">Tap any exercise in the <strong>Exercise Log</strong> tab to view full progression history.</div>
-    </div>
 
-    <!-- NUTRITION -->
+        <h2>My Current Weights</h2>
+        <p style="color:#718096; font-size:14px; margin-top:-8px;">
+            Most recent logged weight per exercise. Updates automatically as you log.
+        </p>
+
+        <h3 style="color:#8B6B4A; border-bottom:2px solid #D4B896; padding-bottom:6px;">
+            Lower Body — Monday (Glute Focus)
+        </h3>
+        <div id="mw-lower-mon" class="mw-grid"></div>
+
+        <h3 style="color:#8B6B4A; border-bottom:2px solid #D4B896; padding-bottom:6px; margin-top:20px;">
+            Lower Body — Thursday (Hamstring Focus)
+        </h3>
+        <div id="mw-lower-thu" class="mw-grid"></div>
+
+        <h3 style="color:#8B6B4A; border-bottom:2px solid #D4B896; padding-bottom:6px; margin-top:20px;">
+            Upper Body
+        </h3>
+        <div id="mw-upper" class="mw-grid"></div>
+
+        <div class="schedule-note" style="margin-top:20px;">
+            Tap any exercise in the <strong>Exercise Log</strong> tab to view full progression history.
+        </div>
+
+    </div><!-- /myweights -->
+
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!--  NUTRITION TAB                                         -->
+    <!-- ══════════════════════════════════════════════════════ -->
     <div id="nutrition" class="page">
 
-        <!-- HYDRATION TRACKER -->
+        <!-- Hydration tracker -->
         <h2>Hydration Tracker</h2>
-        <p style="color:#8B6B4A; font-size:14px; margin-top:-8px;">Goal: 1 gallon = 16 cups (8 oz each). Resets daily.</p>
+        <p style="color:#8B6B4A; font-size:14px; margin-top:-8px;">
+            Goal: 1 gallon = 16 cups (8 oz each). Resets daily.
+        </p>
+
         <div style="text-align:center; margin: 20px 0;">
-            <div id="hydrationCount" style="font-size:52px; font-weight:800; color:#C9A882; line-height:1;">0</div>
+            <div id="hydrationCount"
+                 style="font-size:52px; font-weight:800; color:#C9A882; line-height:1;">0</div>
             <div style="font-size:14px; color:#A07850; margin-top:4px;">of 16 cups</div>
-            <div id="hydrationBar" style="width:100%; height:16px; background:#EDE0CC; border-radius:20px; margin:14px 0; overflow:hidden;">
-                <div id="hydrationFill" style="height:100%; width:0%; background:linear-gradient(90deg,#C9A882,#8B6B4A); border-radius:20px; transition:width 0.4s;"></div>
+
+            <div style="width:100%; height:16px; background:#EDE0CC; border-radius:20px;
+                        margin:14px 0; overflow:hidden;">
+                <div id="hydrationFill"
+                     style="height:100%; width:0%; border-radius:20px; transition:width 0.4s;
+                            background:linear-gradient(90deg,#C9A882,#8B6B4A);"></div>
             </div>
+
             <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:10px;">
-                <button class="log-btn" onclick="addWater(1)" style="font-size:18px; padding:12px 24px;">+ 8 oz</button>
-                <button class="log-btn" onclick="addWater(2)" style="font-size:15px; padding:12px 18px; background:linear-gradient(135deg,#A07850,#7A5C3A);">+ 16 oz</button>
-                <button class="log-btn" onclick="addWater(-1)" style="font-size:15px; padding:12px 18px; background:#C4A882; color:#3D2B1A;">Undo</button>
+                <button class="log-btn" onclick="addWater(1)"
+                        style="font-size:18px; padding:12px 24px;">+ 8 oz</button>
+                <button class="log-btn" onclick="addWater(2)"
+                        style="font-size:15px; padding:12px 18px;
+                               background:linear-gradient(135deg,#A07850,#7A5C3A);">+ 16 oz</button>
+                <button class="log-btn" onclick="addWater(-1)"
+                        style="font-size:15px; padding:12px 18px;
+                               background:#C4A882; color:#3D2B1A;">Undo</button>
             </div>
-            <div id="hydrationMsg" style="margin-top:12px; font-size:14px; font-weight:600; color:#6B8F3E;"></div>
+
+            <div id="hydrationMsg"
+                 style="margin-top:12px; font-size:14px; font-weight:600; color:#6B8F3E;"></div>
         </div>
 
-        <h2 style="margin-top:25px;">Pre-Workout Fuel (60–90 min before)</h2>
-        <div class="exercise"><strong>Rice Cakes + Almond Butter:</strong> 40g carbs, 8g protein</div>
-        <div class="exercise"><strong>Medjool Dates:</strong> 45g carbs, 2g protein — 4–5 dates. Fast energy.</div>
-        <div class="exercise"><strong>Overnight Oats:</strong> 40g carbs, 15g protein — 1/2 cup oats + protein powder</div>
-        <div class="exercise"><strong>Apple + Almond Butter:</strong> 35g carbs, 4g protein</div>
-        <h2 style="margin-top:25px;">Post-Workout Recovery (Within 60 min)</h2>
-        <div class="exercise"><strong>Protein Shake + Dates:</strong> 35g carbs, 25g protein</div>
-        <div class="exercise"><strong>Greek Yogurt + Berries:</strong> 45g carbs, 20g protein — 1 cup yogurt + 2 tbsp honey</div>
-        <div class="exercise"><strong>Chicken + Sweet Potato:</strong> 35g carbs, 35g protein</div>
-        <div class="info-box"><strong>Daily Targets:</strong> 140–160g protein &nbsp;•&nbsp; 35–40g fiber &nbsp;•&nbsp; 150–200g carbs &nbsp;•&nbsp; 60–80g fat &nbsp;•&nbsp; 1 gallon water &nbsp;•&nbsp; 8,000–10,000 steps</div>
-    </div>
+        <!-- The 6 Rules -->
+        <h2 style="margin-top:25px;">The 6 Rules</h2>
+        <p style="color:#718096; font-size:13px; margin-top:-8px; margin-bottom:12px;">
+            No tracking. Follow these in order. They mechanically create a deficit.
+        </p>
 
-    <!-- PROGRESS -->
+        <div class="rule-card">
+            <div class="rule-num">1</div>
+            <div class="rule-body">
+                <strong>Plate Architecture — Every Meal</strong>
+                <span>½ plate vegetables or salad first. ¼ plate protein. ¼ plate carbs/starch.
+                Home or restaurant — no exceptions. Eat in that order.</span>
+            </div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-num">2</div>
+            <div class="rule-body">
+                <strong>Protein Anchors Everything</strong>
+                <span>No meal or snack is carbs-only. Every eating occasion has a protein source.
+                Non-negotiable.</span>
+            </div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-num">3</div>
+            <div class="rule-body">
+                <strong>Eat Protein + Veg First</strong>
+                <span>Before touching the carb portion, finish protein and vegetables.
+                Satiety kicks in before you overeat the high-calorie portion.</span>
+            </div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-num">4</div>
+            <div class="rule-body">
+                <strong>Restaurant Rule</strong>
+                <span>Box half before you eat, or split an entrée.
+                Restaurant portions are 2–3x normal. Highest-risk scenario — plan for it.</span>
+            </div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-num">5</div>
+            <div class="rule-body">
+                <strong>Snacks = Protein + Fiber Only</strong>
+                <span>No naked carb snacks. Greek yogurt, cottage cheese, hard boiled eggs,
+                deli roll-ups, edamame. If it's just fruit or crackers — add protein or skip it.</span>
+            </div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-num">6</div>
+            <div class="rule-body">
+                <strong>Kitchen Closes 2 Hours Before Bed</strong>
+                <span>Nothing after that window. Water only.
+                This eliminates your highest-calorie, lowest-quality eating.</span>
+            </div>
+        </div>
+
+        <div class="info-box" style="margin-top:20px;">
+            <strong>Daily Targets:</strong>
+            140–160g protein &nbsp;•&nbsp; 35–40g fiber &nbsp;•&nbsp;
+            1 gallon water &nbsp;•&nbsp; 8,000–10,000 steps &nbsp;•&nbsp;
+            Kitchen closed 2 hrs before bed
+        </div>
+
+        <!-- Pre / Post workout -->
+        <h2 style="margin-top:25px;">Pre-Workout Fuel
+            <span style="font-size:13px; color:#A07850; font-weight:500;">(60–90 min before)</span>
+        </h2>
+        <div class="exercise"><strong>Rice Cakes + Almond Butter + Hard Boiled Egg:</strong> 42g carbs, 14g protein — Rule 2 compliant</div>
+        <div class="exercise"><strong>Overnight Oats + Protein Powder:</strong> 40g carbs, 25g protein — batch prep Sunday</div>
+        <div class="exercise"><strong>Apple + Cottage Cheese (½ cup):</strong> 30g carbs, 14g protein — fast, portable</div>
+        <div class="exercise"><strong>Greek Yogurt + Berries:</strong> 35g carbs, 17g protein — no prep required</div>
+
+        <h2 style="margin-top:25px;">Post-Workout Recovery
+            <span style="font-size:13px; color:#A07850; font-weight:500;">(within 60 min)</span>
+        </h2>
+        <div class="exercise"><strong>Protein Shake + Banana:</strong> 35g carbs, 25g protein — fast window closer</div>
+        <div class="exercise"><strong>Chicken + Sweet Potato + Side Salad:</strong> 40g carbs, 35g protein — Rule 1 compliant full meal</div>
+        <div class="exercise"><strong>Salmon + Brown Rice + Roasted Broccoli:</strong> 38g carbs, 34g protein — seafood-forward option</div>
+        <div class="exercise"><strong>Greek Yogurt + Berries + Protein mixed in:</strong> 30g carbs, 30g protein — no cooking</div>
+
+        <!-- 2-Week Meal Plan -->
+        <h2 style="margin-top:30px;">2-Week Meal Plan</h2>
+        <p style="color:#718096; font-size:13px; margin-top:-8px; margin-bottom:5px;">
+            All meals follow the 6 Rules. Tap any day to expand.
+            <span class="restaurant-tag">EAT OUT</span> options include the restaurant rule built in.
+        </p>
+
+        <div class="meal-week-tabs">
+            <button class="week-tab active" onclick="showMealWeek(1, this)">Week 1</button>
+            <button class="week-tab"        onclick="showMealWeek(2, this)">Week 2</button>
+        </div>
+
+        <!-- WEEK 1 -->
+        <div id="meal-week-1" class="meal-week active">
+
+            <div class="meal-day">
+                <div class="meal-day-header" onclick="toggleMealDay(this)">
+                    <div><div class="day-label">Monday</div>Lower Body + Kung Fu</div><span>▾</span>
+                </div>
+                <div class="meal-day-body">
+                    <div class="meal-row">
+                        <div class="meal-time">Breakfast</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Scrambled Eggs + Sautéed Spinach + Whole Grain Toast</div>
+                            <div class="meal-note">2 eggs, big handful spinach in olive oil, 1 slice toast. Eat eggs + spinach before toast.</div>
+                            <div class="meal-macros">~38g protein · 28g carbs · 8g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Pre-WO</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Rice Cakes + Almond Butter + Hard Boiled Egg</div>
+                            <div class="meal-note">60–90 min before training. Fast carbs + protein anchor.</div>
+                            <div class="meal-macros">~14g protein · 42g carbs</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Lunch</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Grilled Chicken Bowl</div>
+                            <div class="meal-note">6oz chicken, ½ cup brown rice, roasted broccoli + bell pepper. Veg and chicken before rice.</div>
+                            <div class="meal-macros">~48g protein · 38g carbs · 10g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Snack</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Greek Yogurt + Blueberries <span class="snack-tag">SNACK</span></div>
+                            <div class="meal-note">1 cup plain Greek yogurt, ½ cup blueberries. No added sugar.</div>
+                            <div class="meal-macros">~17g protein · 22g carbs · 3g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Dinner</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Baked Salmon + Roasted Asparagus + Quinoa</div>
+                            <div class="meal-note">6oz salmon, large asparagus portion, ½ cup quinoa. Salmon + veg first, quinoa last.</div>
+                            <div class="meal-macros">~42g protein · 30g carbs · 7g fiber</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="meal-day">
+                <div class="meal-day-header" onclick="toggleMealDay(this)">
+                    <div><div class="day-label">Tuesday</div>Run + Muay Thai</div><span>▾</span>
+                </div>
+                <div class="meal-day-body">
+                    <div class="meal-row">
+                        <div class="meal-time">Breakfast</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Overnight Oats + Protein Powder + Banana</div>
+                            <div class="meal-note">½ cup oats, 1 scoop protein, ½ banana sliced in. Prep the night before.</div>
+                            <div class="meal-macros">~32g protein · 55g carbs · 7g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Pre-WO</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Apple + Cottage Cheese</div>
+                            <div class="meal-note">1 apple + ½ cup 2% cottage cheese. Portable, no prep.</div>
+                            <div class="meal-macros">~14g protein · 30g carbs · 5g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Post-WO</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Protein Shake + Banana</div>
+                            <div class="meal-note">Fast recovery window after run + Muay Thai. Within 30 min.</div>
+                            <div class="meal-macros">~25g protein · 35g carbs</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Lunch</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Shrimp + Zucchini Noodles + Marinara</div>
+                            <div class="meal-note">8oz shrimp, large zucchini noodle portion, ½ cup marinara. High protein, lower carb.</div>
+                            <div class="meal-macros">~44g protein · 18g carbs · 5g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Dinner</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Chipotle Burrito Bowl <span class="restaurant-tag">EAT OUT</span></div>
+                            <div class="meal-note">Double protein, fajita veg, black beans, salsa, guac. No rice or small portion eaten last. Box half if needed.</div>
+                            <div class="meal-macros">~52g protein · 40g carbs · 12g fiber</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="meal-day">
+                <div class="meal-day-header" onclick="toggleMealDay(this)">
+                    <div><div class="day-label">Wednesday</div>Muay Thai</div><span>▾</span>
+                </div>
+                <div class="meal-day-body">
+                    <div class="meal-row">
+                        <div class="meal-time">Breakfast</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Veggie Egg White Omelette + Avocado Toast</div>
+                            <div class="meal-note">4 egg whites + 1 whole egg, peppers + onion + mushrooms, 1 slice sourdough + ¼ avocado.</div>
+                            <div class="meal-macros">~32g protein · 28g carbs · 8g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Lunch</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Large Cobb Salad + Grilled Chicken <span class="restaurant-tag">EAT OUT</span></div>
+                            <div class="meal-note">Dressing on side, use sparingly. Protein + greens first. Skip or move croutons to end.</div>
+                            <div class="meal-macros">~42g protein · 12g carbs · 7g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Snack</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Hard Boiled Eggs + Celery + Hummus <span class="snack-tag">SNACK</span></div>
+                            <div class="meal-note">2 hard boiled eggs, celery sticks, 3 tbsp hummus. Rule 5 compliant.</div>
+                            <div class="meal-macros">~18g protein · 12g carbs · 4g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Dinner</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Sheet Pan Chicken Thighs + Roasted Veg</div>
+                            <div class="meal-note">2 bone-in thighs, large portion broccoli + cauliflower + carrots roasted together. Low effort, high yield.</div>
+                            <div class="meal-macros">~46g protein · 20g carbs · 9g fiber</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="meal-day">
+                <div class="meal-day-header" onclick="toggleMealDay(this)">
+                    <div><div class="day-label">Thursday</div>Lower Body + Run</div><span>▾</span>
+                </div>
+                <div class="meal-day-body">
+                    <div class="meal-row">
+                        <div class="meal-time">Breakfast</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Smoked Salmon + Scrambled Eggs + Arugula</div>
+                            <div class="meal-note">3oz smoked salmon, 2 eggs scrambled, large handful arugula dressed lightly. Seafood-forward start.</div>
+                            <div class="meal-macros">~40g protein · 4g carbs · 2g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Pre-WO</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Greek Yogurt + Berries</div>
+                            <div class="meal-note">1 cup yogurt, ½ cup mixed berries. No granola — keeps carbs controlled.</div>
+                            <div class="meal-macros">~17g protein · 28g carbs · 3g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Lunch</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Turkey + White Bean + Kale Soup</div>
+                            <div class="meal-note">Batch cook or quality store-bought. High fiber, filling, easy. Whole Foods prepared soups work well.</div>
+                            <div class="meal-macros">~30g protein · 32g carbs · 10g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Snack</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Deli Turkey Roll-Ups + Cucumber <span class="snack-tag">SNACK</span></div>
+                            <div class="meal-note">4–5 slices turkey, roll with mustard, cucumber slices on side. Zero cooking.</div>
+                            <div class="meal-macros">~20g protein · 5g carbs · 2g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Dinner</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Grilled Steak + Roasted Brussels Sprouts + Sweet Potato</div>
+                            <div class="meal-note">6oz sirloin, big Brussels portion, small sweet potato eaten last. Steak + sprouts first.</div>
+                            <div class="meal-macros">~50g protein · 30g carbs · 9g fiber</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="meal-day">
+                <div class="meal-day-header" onclick="toggleMealDay(this)">
+                    <div><div class="day-label">Friday</div>Upper Body + Kung Fu</div><span>▾</span>
+                </div>
+                <div class="meal-day-body">
+                    <div class="meal-row">
+                        <div class="meal-time">Breakfast</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">High-Protein Smoothie Bowl</div>
+                            <div class="meal-note">1 scoop protein, ½ cup frozen spinach, ½ cup frozen berries, ½ banana, almond milk. Thick — eat with spoon. Add chia seeds for fiber.</div>
+                            <div class="meal-macros">~30g protein · 42g carbs · 9g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Pre-WO</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Overnight Oats (prepped Thursday)</div>
+                            <div class="meal-note">Grab from fridge. Eat 60–90 min before upper body session.</div>
+                            <div class="meal-macros">~25g protein · 45g carbs · 7g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Lunch</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Sushi <span class="restaurant-tag">EAT OUT</span></div>
+                            <div class="meal-note">Sashimi-heavy: salmon/tuna sashimi + 1 roll max. Miso soup + edamame. Skip tempura.</div>
+                            <div class="meal-macros">~40g protein · 25g carbs · 4g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Snack</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Cottage Cheese + Pineapple <span class="snack-tag">SNACK</span></div>
+                            <div class="meal-note">½ cup 2% cottage cheese, ¼ cup pineapple chunks. Sweet, protein-anchored, Rule 5 compliant.</div>
+                            <div class="meal-macros">~14g protein · 18g carbs · 1g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Dinner</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Shrimp Stir-Fry + Cauliflower Rice</div>
+                            <div class="meal-note">8oz shrimp, broccoli + snap peas + bell pepper, low-sodium soy, sesame oil, cauliflower rice. Big portion, low calorie density.</div>
+                            <div class="meal-macros">~44g protein · 22g carbs · 8g fiber</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="meal-day">
+                <div class="meal-day-header" onclick="toggleMealDay(this)">
+                    <div><div class="day-label">Saturday</div>Solidcore + Run</div><span>▾</span>
+                </div>
+                <div class="meal-day-body">
+                    <div class="meal-row">
+                        <div class="meal-time">Breakfast</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Smash Burger Bowl (Home Version)</div>
+                            <div class="meal-note">93% lean ground beef patty over arugula + tomato + pickles + mustard. No bun.</div>
+                            <div class="meal-macros">~40g protein · 8g carbs · 3g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Post-WO</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Protein Shake + Apple</div>
+                            <div class="meal-note">Fast recovery after Solidcore + run combo.</div>
+                            <div class="meal-macros">~25g protein · 30g carbs</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Lunch</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Mediterranean Platter <span class="restaurant-tag">EAT OUT</span></div>
+                            <div class="meal-note">Grilled chicken or lamb + hummus + tabbouleh + cucumber-tomato salad. Box half the pita or skip it. Protein + salad first.</div>
+                            <div class="meal-macros">~44g protein · 30g carbs · 8g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Snack</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Edamame <span class="snack-tag">SNACK</span></div>
+                            <div class="meal-note">1 cup shelled edamame, lightly salted. Perfect Rule 5 snack — fiber + protein in one.</div>
+                            <div class="meal-macros">~17g protein · 14g carbs · 8g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Dinner</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Baked Cod + Roasted Fennel + Small Orzo</div>
+                            <div class="meal-note">6oz cod, large roasted fennel + cherry tomatoes, ¼ cup orzo. Fish + veg first, orzo at end.</div>
+                            <div class="meal-macros">~38g protein · 24g carbs · 5g fiber</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="meal-day">
+                <div class="meal-day-header" onclick="toggleMealDay(this)">
+                    <div><div class="day-label">Sunday</div>Recovery Run + Batch Prep</div><span>▾</span>
+                </div>
+                <div class="meal-day-body">
+                    <div class="meal-row">
+                        <div class="meal-time">Pre-Run</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Banana + Hard Boiled Egg</div>
+                            <div class="meal-note">Light fuel before easy run. Nothing heavy before Zone 2.</div>
+                            <div class="meal-macros">~8g protein · 28g carbs</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Breakfast</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Veggie Frittata (Batch Cook)</div>
+                            <div class="meal-note">6-egg frittata with spinach, mushroom, roasted red pepper, feta. Slice and refrigerate — feeds Monday too.</div>
+                            <div class="meal-macros">~36g protein · 8g carbs · 3g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Lunch</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Brunch Out <span class="restaurant-tag">EAT OUT</span></div>
+                            <div class="meal-note">Eggs benedict (sub extra greens for potatoes), or avocado toast + side eggs. Protein before bread. Box half if large.</div>
+                            <div class="meal-macros">~30g protein · 25g carbs · 5g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Snack</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Apple + Almond Butter + String Cheese <span class="snack-tag">SNACK</span></div>
+                            <div class="meal-note">1 apple, 1 tbsp almond butter, 1 string cheese. Fruit anchored with protein and fat.</div>
+                            <div class="meal-macros">~10g protein · 28g carbs · 5g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Dinner</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Slow Cooker Chicken Tikka Masala + Cauliflower Rice</div>
+                            <div class="meal-note">Set in the morning. High protein, satisfying, reheats well for Monday lunch.</div>
+                            <div class="meal-macros">~45g protein · 18g carbs · 5g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Prep</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Sunday Batch Prep</div>
+                            <div class="meal-note">Hard boil 6 eggs &nbsp;•&nbsp; Prep 2 overnight oats &nbsp;•&nbsp; Portion snacks &nbsp;•&nbsp; Grill extra chicken for Mon/Tue lunches</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /meal-week-1 -->
+
+        <!-- WEEK 2 -->
+        <div id="meal-week-2" class="meal-week">
+
+            <div class="meal-day">
+                <div class="meal-day-header" onclick="toggleMealDay(this)">
+                    <div><div class="day-label">Monday</div>Lower Body + Kung Fu</div><span>▾</span>
+                </div>
+                <div class="meal-day-body">
+                    <div class="meal-row">
+                        <div class="meal-time">Breakfast</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Frittata Slices (Sunday batch) + Side Salad</div>
+                            <div class="meal-note">2 slices frittata from Sunday prep, arugula + cherry tomatoes. Zero morning effort.</div>
+                            <div class="meal-macros">~30g protein · 8g carbs · 4g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Pre-WO</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Overnight Oats (prepped Sunday)</div>
+                            <div class="meal-note">Grab from fridge. Eat 60–90 min before training.</div>
+                            <div class="meal-macros">~25g protein · 45g carbs · 7g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Lunch</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Batch Chicken + Roasted Veg + Arugula</div>
+                            <div class="meal-note">Plate arugula first, top with Sunday-prepped chicken and veg. Lemon + olive oil dressing. Full Rule 1 plate.</div>
+                            <div class="meal-macros">~48g protein · 15g carbs · 6g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Snack</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Hard Boiled Eggs + Cherry Tomatoes <span class="snack-tag">SNACK</span></div>
+                            <div class="meal-note">2 eggs, handful cherry tomatoes. Rule 5 compliant, zero prep.</div>
+                            <div class="meal-macros">~13g protein · 7g carbs · 2g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Dinner</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Pan-Seared Halibut + Wilted Spinach + Farro</div>
+                            <div class="meal-note">6oz halibut, large spinach portion in garlic/olive oil, ¼ cup farro. Fish + veg first.</div>
+                            <div class="meal-macros">~44g protein · 28g carbs · 6g fiber</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="meal-day">
+                <div class="meal-day-header" onclick="toggleMealDay(this)">
+                    <div><div class="day-label">Tuesday</div>Run + Muay Thai</div><span>▾</span>
+                </div>
+                <div class="meal-day-body">
+                    <div class="meal-row">
+                        <div class="meal-time">Breakfast</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Egg + Turkey Sausage Scramble + Spinach</div>
+                            <div class="meal-note">2 eggs + 2 turkey sausage links, big handful spinach scrambled in. High protein, fast cook.</div>
+                            <div class="meal-macros">~34g protein · 6g carbs · 3g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Pre-WO</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Apple + Greek Yogurt</div>
+                            <div class="meal-note">1 apple + ½ cup plain Greek yogurt. Quick, portable, Rule 2 compliant.</div>
+                            <div class="meal-macros">~10g protein · 35g carbs · 5g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Post-WO</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Protein Shake + Dates</div>
+                            <div class="meal-note">Fast carb + protein combo post-interval run. 3–4 dates max.</div>
+                            <div class="meal-macros">~27g protein · 38g carbs</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Lunch</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Poke Bowl <span class="restaurant-tag">EAT OUT</span></div>
+                            <div class="meal-note">Base: cucumber noodles or mixed greens (not just rice). Double protein (ahi + edamame). Light sauce. Rice = ¼ of bowl max.</div>
+                            <div class="meal-macros">~45g protein · 30g carbs · 7g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Dinner</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Chicken + White Bean + Roasted Tomato Bake</div>
+                            <div class="meal-note">6oz chicken breast, 1 can white beans, cherry tomatoes, garlic, olive oil — all one pan. Easy, high fiber.</div>
+                            <div class="meal-macros">~52g protein · 36g carbs · 12g fiber</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="meal-day">
+                <div class="meal-day-header" onclick="toggleMealDay(this)">
+                    <div><div class="day-label">Wednesday</div>Muay Thai</div><span>▾</span>
+                </div>
+                <div class="meal-day-body">
+                    <div class="meal-row">
+                        <div class="meal-time">Breakfast</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Smoked Salmon Bagel Thin + Cream Cheese + Arugula</div>
+                            <div class="meal-note">1 bagel thin, 2oz smoked salmon, light cream cheese, arugula on top. Salmon + arugula first, bread last.</div>
+                            <div class="meal-macros">~24g protein · 26g carbs · 3g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Lunch</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Chicken Caesar Salad (no croutons) <span class="restaurant-tag">EAT OUT</span></div>
+                            <div class="meal-note">Dressing on side. No croutons or move to end. Add extra protein if available. Full salad, no breadstick.</div>
+                            <div class="meal-macros">~44g protein · 10g carbs · 5g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Snack</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Cottage Cheese + Sliced Peach + Cinnamon <span class="snack-tag">SNACK</span></div>
+                            <div class="meal-note">½ cup cottage cheese, ½ peach sliced, pinch of cinnamon. Feels indulgent, totally Rule 5 compliant.</div>
+                            <div class="meal-macros">~14g protein · 16g carbs · 2g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Dinner</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Ground Turkey Stuffed Bell Peppers</div>
+                            <div class="meal-note">2 large peppers stuffed with 6oz lean ground turkey, diced tomatoes, onion, cumin, small amount brown rice. High volume, low calorie density.</div>
+                            <div class="meal-macros">~46g protein · 28g carbs · 8g fiber</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="meal-day">
+                <div class="meal-day-header" onclick="toggleMealDay(this)">
+                    <div><div class="day-label">Thursday</div>Lower Body + Run</div><span>▾</span>
+                </div>
+                <div class="meal-day-body">
+                    <div class="meal-row">
+                        <div class="meal-time">Breakfast</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">2-Ingredient Protein Pancakes + Berries</div>
+                            <div class="meal-note">1 banana + 2 eggs blended, cook like pancakes. Top with berries only — no syrup.</div>
+                            <div class="meal-macros">~15g protein · 30g carbs · 4g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Pre-WO</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Cottage Cheese + Pineapple</div>
+                            <div class="meal-note">½ cup cottage cheese, ¼ cup pineapple. Sweet, fast, Rule 2 locked.</div>
+                            <div class="meal-macros">~14g protein · 18g carbs · 1g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Lunch</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Lemon Herb Tuna + Cucumber Boats</div>
+                            <div class="meal-note">2 cans albacore tuna, lemon juice, olive oil, herbs, dijon. Serve in cucumber halves. Zero cooking, high protein.</div>
+                            <div class="meal-macros">~48g protein · 6g carbs · 2g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Snack</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Deli Turkey + Pickles + Mustard Roll-Up <span class="snack-tag">SNACK</span></div>
+                            <div class="meal-note">5 slices turkey, 2 pickle spears, mustard. Rule 5, near-zero carbs, fully satisfying.</div>
+                            <div class="meal-macros">~20g protein · 3g carbs · 1g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Dinner</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Miso Glazed Salmon + Bok Choy + Brown Rice</div>
+                            <div class="meal-note">6oz salmon, large bok choy sautéed in garlic, ¼ cup brown rice. Salmon + bok choy first.</div>
+                            <div class="meal-macros">~44g protein · 26g carbs · 5g fiber</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="meal-day">
+                <div class="meal-day-header" onclick="toggleMealDay(this)">
+                    <div><div class="day-label">Friday</div>Upper Body + Kung Fu</div><span>▾</span>
+                </div>
+                <div class="meal-day-body">
+                    <div class="meal-row">
+                        <div class="meal-time">Breakfast</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Egg White + Feta + Sun-Dried Tomato Scramble</div>
+                            <div class="meal-note">4 egg whites + 1 whole egg, 1oz feta, sun-dried tomatoes, 1 slice sourdough. Eggs first, toast last.</div>
+                            <div class="meal-macros">~30g protein · 24g carbs · 3g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Pre-WO</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Overnight Oats + Banana (prepped Thursday)</div>
+                            <div class="meal-note">Pull from fridge. Eat 60–90 min before upper body session.</div>
+                            <div class="meal-macros">~25g protein · 55g carbs · 7g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Lunch</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Steakhouse <span class="restaurant-tag">EAT OUT</span></div>
+                            <div class="meal-note">6oz filet or sirloin + double side salad + steamed veg. Salad + protein first. Sub veg for starch. Skip the bread basket.</div>
+                            <div class="meal-macros">~55g protein · 20g carbs · 8g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Snack</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Greek Yogurt + Chia Seeds + Sliced Almonds <span class="snack-tag">SNACK</span></div>
+                            <div class="meal-note">1 cup Greek yogurt, 1 tbsp chia seeds, 1 tbsp sliced almonds. High fiber, high protein.</div>
+                            <div class="meal-macros">~20g protein · 16g carbs · 6g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Dinner</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Thai Basil Chicken + Cauliflower Rice</div>
+                            <div class="meal-note">6oz ground chicken, fish sauce, oyster sauce, Thai basil, jalapeño, over cauliflower rice. 15 min stir-fry. High protein, low carb.</div>
+                            <div class="meal-macros">~42g protein · 14g carbs · 4g fiber</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="meal-day">
+                <div class="meal-day-header" onclick="toggleMealDay(this)">
+                    <div><div class="day-label">Saturday</div>Solidcore + Run</div><span>▾</span>
+                </div>
+                <div class="meal-day-body">
+                    <div class="meal-row">
+                        <div class="meal-time">Breakfast</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Green Power Smoothie Bowl</div>
+                            <div class="meal-note">1 scoop protein, 1 cup frozen spinach, ½ frozen banana, ½ cup frozen mango, coconut water. Top with chia + berries only. Eat with spoon.</div>
+                            <div class="meal-macros">~28g protein · 45g carbs · 8g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Post-WO</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Protein Shake + Dates</div>
+                            <div class="meal-note">Fast recovery post-Solidcore + run. 3–4 dates + shake.</div>
+                            <div class="meal-macros">~27g protein · 35g carbs</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Lunch</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Seafood Restaurant <span class="restaurant-tag">EAT OUT</span></div>
+                            <div class="meal-note">Grilled fish (not fried), large steamed veg or salad, small starch eaten last. Box half if large. Your seafood-forward treat meal — order well.</div>
+                            <div class="meal-macros">~48g protein · 25g carbs · 6g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Snack</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Edamame + Cucumber Slices <span class="snack-tag">SNACK</span></div>
+                            <div class="meal-note">1 cup shelled edamame, cucumber slices. Rule 5, high fiber, easy.</div>
+                            <div class="meal-macros">~17g protein · 16g carbs · 9g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Dinner</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Chicken Shawarma Lettuce Wraps</div>
+                            <div class="meal-note">6oz seasoned chicken thigh (cumin, paprika, garlic, lemon), large romaine leaves as wraps, cucumber-tomato salad, tzatziki. No pita.</div>
+                            <div class="meal-macros">~46g protein · 12g carbs · 4g fiber</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="meal-day">
+                <div class="meal-day-header" onclick="toggleMealDay(this)">
+                    <div><div class="day-label">Sunday</div>Recovery Run + Batch Prep</div><span>▾</span>
+                </div>
+                <div class="meal-day-body">
+                    <div class="meal-row">
+                        <div class="meal-time">Pre-Run</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Banana + String Cheese</div>
+                            <div class="meal-note">Light fuel before easy run. Keep it simple.</div>
+                            <div class="meal-macros">~7g protein · 28g carbs</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Breakfast</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Shakshuka (Eggs in Tomato Sauce)</div>
+                            <div class="meal-note">2 eggs poached in spiced tomato + pepper sauce. 1 slice crusty bread for dipping — eggs first. High volume, low calorie.</div>
+                            <div class="meal-macros">~18g protein · 24g carbs · 6g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Lunch</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Family Meal <span class="restaurant-tag">EAT OUT</span></div>
+                            <div class="meal-note">Apply the plate rule: ½ veg first, ¼ protein, ¼ starch. Heavier lunch = lighter dinner. One relaxed application day — this is it.</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Snack</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Apple + Almond Butter + String Cheese <span class="snack-tag">SNACK</span></div>
+                            <div class="meal-note">Rule 5 compliant — fruit anchored with fat and protein.</div>
+                            <div class="meal-macros">~10g protein · 28g carbs · 5g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Dinner</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Lemon Herb Chicken Soup</div>
+                            <div class="meal-note">Store-bought or batch-cooked. Large bowl with extra veg stirred in. Low calorie density, high volume, closes the week clean.</div>
+                            <div class="meal-macros">~35g protein · 20g carbs · 6g fiber</div>
+                        </div>
+                    </div>
+                    <div class="meal-row">
+                        <div class="meal-time">Prep</div>
+                        <div class="meal-detail">
+                            <div class="meal-name">Sunday Batch Prep — Week 3</div>
+                            <div class="meal-note">Hard boil 6 eggs &nbsp;•&nbsp; Prep 2 overnight oats &nbsp;•&nbsp; Marinate chicken for Monday &nbsp;•&nbsp; Chop and portion veg for the week</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /meal-week-2 -->
+
+    </div><!-- /nutrition -->
+
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!--  PROGRESS TAB                                          -->
+    <!-- ══════════════════════════════════════════════════════ -->
     <div id="progress" class="page">
+
         <h2>Progressive Overload Strategy</h2>
+
         <div class="exercise">
             <strong>4-Week Cycle:</strong><br>
-            Week 1: Find working weight &nbsp;•&nbsp; Week 2: +1 rep/set &nbsp;•&nbsp; Week 3: +1 more rep &nbsp;•&nbsp; Week 4: Deload (−20%) &nbsp;•&nbsp; Week 5: +5–10 lbs, restart
+            Week 1: Find working weight &nbsp;•&nbsp;
+            Week 2: +1 rep/set &nbsp;•&nbsp;
+            Week 3: +1 more rep &nbsp;•&nbsp;
+            Week 4: Deload (−20%) &nbsp;•&nbsp;
+            Week 5: +5–10 lbs, restart
         </div>
+
         <div class="exercise">
             <strong>Example — Hip Thrusts:</strong><br>
-            W1: 135×4x10 &nbsp; W2: 135×4x11 &nbsp; W3: 135×4x12 &nbsp; W4: 115×4x10 &nbsp; W5: 145×4x10
+            W1: 135×4×10 &nbsp;&nbsp;
+            W2: 135×4×11 &nbsp;&nbsp;
+            W3: 135×4×12 &nbsp;&nbsp;
+            W4: 115×4×10 &nbsp;&nbsp;
+            W5: 145×4×10
         </div>
-        <h2 style="margin-top:25px;">Milestones</h2>
-        <div class="exercise"><strong>Month 3:</strong> Hip Thrusts +30–40 lbs, OHP +15–20 lbs, visible glute growth</div>
-        <div class="exercise"><strong>Month 6:</strong> Hip Thrusts +60–80 lbs, significant transformation</div>
-        <div class="exercise"><strong>Month 9–10:</strong> Hip Thrusts 225–255 lbs — <strong>SNATCHED ACHIEVED</strong></div>
-        <div class="schedule-note"><strong>Muay Thai Flag:</strong> When transitioning to advanced classes, reassess Monday lower body spacing — Tuesday/Wednesday leg stimulus increases significantly.</div>
-        <div class="info-box"><strong>Recovery:</strong> Oura Ring — Post-CISSP closeout (Q1 2026). Adds HRV, sleep staging, readiness scoring.</div>
-    </div>
 
-    <!-- PHOTOS -->
+        <h2 style="margin-top:25px;">Running Progression</h2>
+
+        <div class="run-block">
+            <strong>Phase 1 — Weeks 1–4: Establish the Base</strong><br>
+            Build to 115 min/week consistently. Tuesday intervals at a controlled pace.
+            Priority is form and aerobic adaptation, not speed.<br><br>
+
+            <strong>Phase 2 — Weeks 5–8: Add Volume</strong><br>
+            Extend Tuesday run to 45 min. Add one interval rep (7×400m).
+            Sunday easy run extends to 35 min. Thursday and Saturday stay the same.<br><br>
+
+            <strong>Phase 3 — Weeks 9–12: Add Intensity</strong><br>
+            Tuesday tempo block extends to 25 min. Consider extending Thursday run to 30 min
+            if recovery metrics allow. Monitor Oura HRV before committing.
+        </div>
+
+        <h2 style="margin-top:25px;">Strength Milestones</h2>
+
+        <div class="exercise">
+            <strong>Month 3:</strong>
+            Hip Thrusts +30–40 lbs, OHP +15–20 lbs, visible glute growth,
+            noticeable body composition shift from combined training + nutrition
+        </div>
+        <div class="exercise">
+            <strong>Month 6:</strong>
+            Hip Thrusts +60–80 lbs, significant transformation
+        </div>
+        <div class="exercise">
+            <strong>Month 9–10:</strong>
+            Hip Thrusts 225–255 lbs — <strong>SNATCHED ACHIEVED</strong>
+        </div>
+
+        <div class="schedule-note">
+            <strong>Muay Thai Flag:</strong> When advancing to higher-intensity classes, reassess
+            Tuesday run volume — the back-to-back demand increases significantly.
+        </div>
+
+        <div class="info-box">
+            <strong>Recovery Tech:</strong> Oura Ring — Post-CISSP closeout (Q1 2026).
+            Adds HRV, sleep staging, and readiness scoring to optimize training load.
+        </div>
+
+    </div><!-- /progress -->
+
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!--  PHOTOS TAB                                            -->
+    <!-- ══════════════════════════════════════════════════════ -->
     <div id="photos" class="page">
+
         <h2>Progress Photos</h2>
-        <p style="color:#A07850; font-size:14px; margin-top:-8px;">Log each photo session with conditions checklist and notes. Store your photo, track your consistency.</p>
+        <p style="color:#A07850; font-size:14px; margin-top:-8px;">
+            Log each session with conditions checklist and notes. Standardized conditions make comparisons valid.
+        </p>
 
         <div class="info-box">
             <strong>Standardized Conditions Checklist</strong><br>
@@ -487,459 +1655,658 @@
 
         <div style="background:#FAF5EE; border-radius:10px; padding:18px; margin:15px 0;">
             <div style="font-weight:700; color:#7A5C3A; margin-bottom:12px;">Before You Shoot</div>
-            <label style="display:flex; align-items:center; gap:10px; margin:8px 0; font-size:14px;"><input type="checkbox" id="chk1" style="width:18px;height:18px;accent-color:#C9A882;"> Same time of day (morning, fasted)</label>
-            <label style="display:flex; align-items:center; gap:10px; margin:8px 0; font-size:14px;"><input type="checkbox" id="chk2" style="width:18px;height:18px;accent-color:#C9A882;"> Same lighting (natural light, same spot)</label>
-            <label style="display:flex; align-items:center; gap:10px; margin:8px 0; font-size:14px;"><input type="checkbox" id="chk3" style="width:18px;height:18px;accent-color:#C9A882;"> Same outfit (or no shirt)</label>
-            <label style="display:flex; align-items:center; gap:10px; margin:8px 0; font-size:14px;"><input type="checkbox" id="chk4" style="width:18px;height:18px;accent-color:#C9A882;"> Same poses (front, side, back)</label>
-            <label style="display:flex; align-items:center; gap:10px; margin:8px 0; font-size:14px;"><input type="checkbox" id="chk5" style="width:18px;height:18px;accent-color:#C9A882;"> Same distance from mirror/camera</label>
-            <label style="display:flex; align-items:center; gap:10px; margin:8px 0; font-size:14px;"><input type="checkbox" id="chk6" style="width:18px;height:18px;accent-color:#C9A882;"> Relaxed pose + flexed pose both captured</label>
+            <label style="display:flex; align-items:center; gap:10px; margin:8px 0; font-size:14px; cursor:pointer;">
+                <input type="checkbox" id="chk1" style="width:18px; height:18px; accent-color:#C9A882;">
+                Same time of day (morning, fasted)
+            </label>
+            <label style="display:flex; align-items:center; gap:10px; margin:8px 0; font-size:14px; cursor:pointer;">
+                <input type="checkbox" id="chk2" style="width:18px; height:18px; accent-color:#C9A882;">
+                Same lighting (natural light, same spot)
+            </label>
+            <label style="display:flex; align-items:center; gap:10px; margin:8px 0; font-size:14px; cursor:pointer;">
+                <input type="checkbox" id="chk3" style="width:18px; height:18px; accent-color:#C9A882;">
+                Same outfit (or no shirt)
+            </label>
+            <label style="display:flex; align-items:center; gap:10px; margin:8px 0; font-size:14px; cursor:pointer;">
+                <input type="checkbox" id="chk4" style="width:18px; height:18px; accent-color:#C9A882;">
+                Same poses (front, side, back)
+            </label>
+            <label style="display:flex; align-items:center; gap:10px; margin:8px 0; font-size:14px; cursor:pointer;">
+                <input type="checkbox" id="chk5" style="width:18px; height:18px; accent-color:#C9A882;">
+                Same distance from mirror / camera
+            </label>
+            <label style="display:flex; align-items:center; gap:10px; margin:8px 0; font-size:14px; cursor:pointer;">
+                <input type="checkbox" id="chk6" style="width:18px; height:18px; accent-color:#C9A882;">
+                Relaxed pose + flexed pose both captured
+            </label>
         </div>
 
         <div class="log-form" style="flex-direction:column; align-items:stretch;">
             <input type="date" id="photoDate" style="flex:none;">
             <input type="text" id="photoNote" placeholder="Notes (weight, how you felt, what you notice...)" style="flex:none;">
-            <input type="file" id="photoFile" accept="image/*" capture="user" style="flex:none; font-size:13px; color:#8B6B4A;">
-            <button class="log-btn" onclick="logPhoto()" style="align-self:flex-start;">Save Photo Session</button>
+            <input type="file" id="photoFile" accept="image/*" capture="user"
+                   style="flex:none; font-size:13px; color:#8B6B4A;">
+            <button class="log-btn" onclick="logPhoto()" style="align-self:flex-start;">
+                Save Photo Session
+            </button>
         </div>
 
         <div id="photoHistory"></div>
-    </div>
 
-</div>
+    </div><!-- /photos -->
+
+</div><!-- /content -->
 ```
 
-</div>
+</div><!-- /container -->
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+
+<!--  JAVASCRIPT                                                    -->
+
+<!-- ══════════════════════════════════════════════════════════════ -->
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyANLFWZSGD_6hF5FkRIrzSiCroWs8bXcc8",
-    authDomain: "the-ry-protocol.firebaseapp.com",
-    projectId: "the-ry-protocol",
-    storageBucket: "the-ry-protocol.firebasestorage.app",
-    messagingSenderId: "1091455655761",
-    appId: "1:1091455655761:web:06796a49d8567e1c7efd70"
-};
+    import { initializeApp }                     from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+    // ── Firebase config ───────────────────────────────────────────
+    const firebaseConfig = {
+        apiKey:            "AIzaSyANLFWZSGD_6hF5FkRIrzSiCroWs8bXcc8",
+        authDomain:        "the-ry-protocol.firebaseapp.com",
+        projectId:         "the-ry-protocol",
+        storageBucket:     "the-ry-protocol.firebasestorage.app",
+        messagingSenderId: "1091455655761",
+        appId:             "1:1091455655761:web:06796a49d8567e1c7efd70"
+    };
 
-// ─── FIREBASE STORAGE ─────────────────────────────────────────────
-const _cache = {};
+    const app = initializeApp(firebaseConfig);
+    const db  = getFirestore(app);
 
-function lsGet(key) {
-    try { const v = localStorage.getItem('ry_' + key); return v ? JSON.parse(v) : null; } catch(e) { return null; }
-}
-function lsSet(key, value) {
-    try { localStorage.setItem('ry_' + key, JSON.stringify(value)); } catch(e) {}
-}
+    // ── Storage helpers: Firebase + localStorage fallback ─────────
+    const _cache = {};
 
-async function sSet(key, value) {
-    _cache[key] = value;
-    lsSet(key, value);
-    try {
-        await setDoc(doc(db, 'ryprotocol', key), { value: JSON.stringify(value) });
-    } catch(e) { console.warn('Firebase write error:', e); }
-}
-
-async function sGet(key) {
-    if (_cache[key] !== undefined) return _cache[key];
-    const local = lsGet(key);
-    if (local !== null) { _cache[key] = local; }
-    try {
-        const snap = await getDoc(doc(db, 'ryprotocol', key));
-        if (snap.exists()) {
-            const val = JSON.parse(snap.data().value);
-            _cache[key] = val;
-            lsSet(key, val);
-            return val;
+    function lsGet(key) {
+        try {
+            const v = localStorage.getItem('ry_' + key);
+            return v ? JSON.parse(v) : null;
+        } catch (e) {
+            return null;
         }
-    } catch(e) { console.warn('Firebase read error:', e); }
-    return local;
-}
-
-// ─── TABS & DAYS ──────────────────────────────────────────────────
-function showTab(t, e) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-    document.getElementById(t).classList.add('active');
-    if(e) e.target.classList.add('active');
-    if(t==='tracker') { renderBWChart(); renderBWHistory(); renderBWStats(); }
-    if(t==='exlog') renderExerciseHistory();
-    if(t==='myweights') renderMyWeights();
-    if(t==='nutrition') { renderHydration(); }
-    if(t==='photos') renderPhotoHistory();
-    if(t==='exlog') { renderExerciseHistory(); renderPRFeed(); }
-}
-function showDay(d, e) {
-    document.querySelectorAll('.workout').forEach(w => w.classList.remove('active'));
-    document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(d).classList.add('active');
-    if(e) e.target.classList.add('active');
-}
-window.showTab = showTab;
-window.showDay = showDay;
-
-// ─── CYCLE TRACKER ────────────────────────────────────────────────
-const WEEKS = [
-    {label:'Accumulation Week 1', type:'accumulation'},
-    {label:'Accumulation Week 2', type:'accumulation'},
-    {label:'Accumulation Week 3', type:'accumulation'},
-    {label:'Deload Week',         type:'deload'},
-];
-
-async function getCycle() { return (await sGet('cycle')) || {w:0}; }
-
-async function renderCycle() {
-    const {w} = await getCycle();
-    const wk = WEEKS[w];
-    const el = document.getElementById('cycleWeekDisplay');
-    el.textContent = wk.label;
-    el.className = 'cycle-week-display ' + wk.type;
-    const pips = document.getElementById('cyclePips');
-    pips.innerHTML = '';
-    WEEKS.forEach((wk2, i) => {
-        const p = document.createElement('div');
-        p.className = 'pip ' + (wk2.type==='deload'?'dl':'acc') + (i===w?' current':'');
-        p.textContent = i===3 ? 'D' : i+1;
-        p.title = wk2.label;
-        p.onclick = async () => { await sSet('cycle',{w:i}); renderCycle(); };
-        pips.appendChild(p);
-    });
-}
-
-async function changeCycleWeek(dir) {
-    const d = await getCycle();
-    d.w = (d.w + dir + 4) % 4;
-    await sSet('cycle', d);
-    renderCycle();
-}
-window.changeCycleWeek = changeCycleWeek;
-
-// ─── BODYWEIGHT ───────────────────────────────────────────────────
-async function getBW() { return (await sGet('bwLog')) || []; }
-
-async function logBodyweight() {
-    const date = document.getElementById('bwDate').value;
-    const val = parseFloat(document.getElementById('bwValue').value);
-    if (!date || isNaN(val) || val <= 0) return alert('Enter a valid date and weight.');
-    const log = await getBW();
-    const i = log.findIndex(e => e.date === date);
-    if (i >= 0) log[i].weight = val; else log.push({date, weight: val});
-    log.sort((a,b) => a.date.localeCompare(b.date));
-    await sSet('bwLog', log);
-    document.getElementById('bwValue').value = '';
-    renderBWChart(); renderBWHistory(); renderBWStats();
-}
-window.logBodyweight = logBodyweight;
-
-async function deleteBW(date) {
-    const log = await getBW();
-    await sSet('bwLog', log.filter(e => e.date !== date));
-    renderBWChart(); renderBWHistory(); renderBWStats();
-}
-window.deleteBW = deleteBW;
-
-async function renderBWStats() {
-    const log = await getBW();
-    if (!log.length) {
-        ['bwCurrent','bwStart','bwChange','bwLow'].forEach(id => document.getElementById(id).textContent = '—');
-        return;
     }
-    const cur = log[log.length-1].weight;
-    const start = log[0].weight;
-    const low = Math.min(...log.map(e=>e.weight));
-    const chg = (cur - start).toFixed(1);
-    document.getElementById('bwCurrent').textContent = cur + ' lbs';
-    document.getElementById('bwStart').textContent = start + ' lbs';
-    document.getElementById('bwLow').textContent = low + ' lbs';
-    const cel = document.getElementById('bwChange');
-    cel.textContent = (chg > 0 ? '+' : '') + chg + ' lbs';
-    cel.className = 'sval ' + (chg > 0 ? 'up' : 'down');
-}
 
-async function renderBWHistory() {
-    const log = (await getBW()).slice().reverse();
-    const c = document.getElementById('bwHistory');
-    if (!log.length) { c.innerHTML = '<div class="empty-state">No entries yet.</div>'; return; }
-    c.innerHTML = log.slice(0,12).map(e =>
-        `<div class="log-entry">
-            <span class="entry-date">${fmtDate(e.date)}</span>
-            <span class="entry-val">${e.weight} lbs</span>
-            <button class="entry-del" onclick="deleteBW('${e.date}')">×</button>
-        </div>`
-    ).join('');
-}
-
-async function renderBWChart() {
-    const log = await getBW();
-    const canvas = document.getElementById('bwChart');
-    canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);
-    if (log.length < 2) return;
-    drawChart(canvas, log.map(e=>fmtDate(e.date)), log.map(e=>e.weight), '#C9A882', 'Bodyweight (lbs)');
-}
-
-// ─── EXERCISE LOG ─────────────────────────────────────────────────
-async function getEx() { return (await sGet('exLog')) || {}; }
-
-async function logExercise() {
-    const ex = document.getElementById('exerciseSelect').value;
-    const date = document.getElementById('exDate').value;
-    const weight = parseFloat(document.getElementById('exWeight').value);
-    const sr = document.getElementById('exSetsReps').value.trim();
-    if (!date || isNaN(weight) || weight < 0) return alert('Enter a valid date and weight.');
-    const log = await getEx();
-    if (!log[ex]) log[ex] = [];
-    const i = log[ex].findIndex(e => e.date === date);
-    const entry = {date, weight, sr};
-    if (i >= 0) log[ex][i] = entry; else log[ex].push(entry);
-    log[ex].sort((a,b) => a.date.localeCompare(b.date));
-    await sSet('exLog', log);
-    document.getElementById('exWeight').value = '';
-    document.getElementById('exSetsReps').value = '';
-    renderExerciseHistory();
-}
-window.logExercise = logExercise;
-
-async function deleteEx(ex, date) {
-    const log = await getEx();
-    if (log[ex]) { log[ex] = log[ex].filter(e => e.date !== date); if(!log[ex].length) delete log[ex]; }
-    await sSet('exLog', log);
-    renderExerciseHistory();
-}
-window.deleteEx = deleteEx;
-
-async function renderExerciseHistory() {
-    const ex = document.getElementById('exerciseSelect').value;
-    const entries = ((await getEx())[ex] || []);
-    const canvas = document.getElementById('exChart');
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    if (entries.length > 1) drawChart(canvas, entries.map(e=>fmtDate(e.date)), entries.map(e=>e.weight), '#A07850', ex + ' — lbs over time');
-    const c = document.getElementById('exHistory');
-    if (!entries.length) { c.innerHTML = '<div class="empty-state">No entries yet for ' + ex + '.</div>'; return; }
-    const maxW = Math.max(...entries.map(e=>e.weight));
-    c.innerHTML = entries.slice().reverse().map(e =>
-        `<div class="log-entry">
-            <span class="entry-date">${fmtDate(e.date)}</span>
-            <span class="entry-val">${e.weight} lbs${e.sr?' <span style="color:#718096;font-weight:400;">@ '+e.sr+'</span>':''}${e.weight===maxW?'<span class="pr-badge">PR</span>':''}</span>
-            <button class="entry-del" onclick="deleteEx('${ex}','${e.date}')">×</button>
-        </div>`
-    ).join('');
-}
-
-// ─── MY WEIGHTS ───────────────────────────────────────────────────
-const LOWER_MON = ['Hip Thrusts','Bulgarian Split Squats','Sumo Goblet Squats','Cable Kickbacks','Lying Leg Curls','Abductor Machine','Standing Calf Raises','Pallof Press'];
-const LOWER_THU = ['Romanian Deadlifts','Front/Goblet Squats','Walking Lunges','Single-Leg RDLs','Leg Press','Leg Curls','Seated Calf Raises','Hanging Knee Raises'];
-const UPPER_EXERCISES = ['Overhead Press','Incline DB Press','Pull-Ups','Cable Rows','Single-Arm Rows','Lateral Raises','Face Pulls','Reverse Flyes','Bicep Curls','Tricep Pushdowns','Shrugs'];
-
-async function renderMyWeights() {
-    const log = await getEx();
-    function buildGrid(containerId, exercises) {
-        const container = document.getElementById(containerId);
-        container.innerHTML = exercises.map(ex => {
-            const entries = log[ex] || [];
-            const latest = entries.length ? entries[entries.length - 1] : null;
-            const hasData = !!latest;
-            return `<div class="mw-card ${hasData ? '' : 'no-data'}">
-                <div class="mw-name">${ex}</div>
-                <div class="mw-weight ${hasData ? '' : 'empty'}">${hasData ? latest.weight + ' <span style="font-size:13px;font-weight:500;color:#a0aec0;">lbs</span>' : 'Not logged'}</div>
-                ${hasData ? `<div class="mw-meta">${latest.sr ? latest.sr + ' &nbsp;•&nbsp; ' : ''}${fmtDate(latest.date)}</div>` : ''}
-            </div>`;
-        }).join('');
+    function lsSet(key, value) {
+        try { localStorage.setItem('ry_' + key, JSON.stringify(value)); }
+        catch (e) {}
     }
-    buildGrid('mw-lower-mon', LOWER_MON);
-    buildGrid('mw-lower-thu', LOWER_THU);
-    buildGrid('mw-upper', UPPER_EXERCISES);
-}
 
-// ─── CHART ────────────────────────────────────────────────────────
-function drawChart(canvas, labels, data, color, title) {
-    const W = canvas.parentElement.offsetWidth || 600;
-    const H = parseInt(canvas.getAttribute('height')) || 140;
-    canvas.width = W * 2; canvas.height = H * 2;
-    const ctx = canvas.getContext('2d');
-    ctx.scale(2,2);
-    const pad = {top:28, right:16, bottom:36, left:48};
-    const w = W - pad.left - pad.right;
-    const h = H - pad.top - pad.bottom;
-    const min = Math.min(...data) * 0.96;
-    const max = Math.max(...data) * 1.04;
-    ctx.fillStyle = '#f7fafc'; ctx.fillRect(0,0,W,H);
-    ctx.fillStyle = '#4a5568'; ctx.font = '600 11px system-ui'; ctx.textAlign = 'left';
-    ctx.fillText(title, pad.left, 18);
-    for (let i=0; i<=4; i++) {
-        const y = pad.top + h - (i/4)*h;
-        ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(pad.left,y); ctx.lineTo(pad.left+w,y); ctx.stroke();
-        ctx.fillStyle = '#a0aec0'; ctx.font = '9px system-ui'; ctx.textAlign = 'right';
-        ctx.fillText(((min+(max-min)*(i/4))).toFixed(1), pad.left-4, y+3);
+    async function sSet(key, value) {
+        _cache[key] = value;
+        lsSet(key, value);
+        try {
+            await setDoc(doc(db, 'ryprotocol', key), { value: JSON.stringify(value) });
+        } catch (e) {
+            console.warn('Firebase write error:', e);
+        }
     }
-    if (data.length < 2) return;
-    const xS = w / (data.length-1);
-    const yS = v => pad.top + h - ((v-min)/(max-min))*h;
-    const grad = ctx.createLinearGradient(0,pad.top,0,pad.top+h);
-    grad.addColorStop(0, color+'55'); grad.addColorStop(1, color+'00');
-    ctx.beginPath();
-    ctx.moveTo(pad.left, yS(data[0]));
-    data.forEach((v,i) => ctx.lineTo(pad.left+i*xS, yS(v)));
-    ctx.lineTo(pad.left+(data.length-1)*xS, pad.top+h);
-    ctx.lineTo(pad.left, pad.top+h);
-    ctx.closePath(); ctx.fillStyle = grad; ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(pad.left, yS(data[0]));
-    data.forEach((v,i) => ctx.lineTo(pad.left+i*xS, yS(v)));
-    ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.lineJoin = 'round'; ctx.stroke();
-    data.forEach((v,i) => {
-        ctx.beginPath(); ctx.arc(pad.left+i*xS, yS(v), 4, 0, Math.PI*2);
-        ctx.fillStyle = color; ctx.fill();
-        ctx.strokeStyle = 'white'; ctx.lineWidth = 2; ctx.stroke();
-    });
-    const step = Math.max(1, Math.floor(labels.length/6));
-    labels.forEach((l,i) => {
-        if (i%step!==0 && i!==labels.length-1) return;
-        ctx.fillStyle = '#a0aec0'; ctx.font = '9px system-ui'; ctx.textAlign = 'center';
-        ctx.fillText(l, pad.left+i*xS, pad.top+h+14);
-    });
-}
 
-// ─── UTILS ────────────────────────────────────────────────────────
+    async function sGet(key) {
+        if (_cache[key] !== undefined) return _cache[key];
+        const local = lsGet(key);
+        if (local !== null) _cache[key] = local;
+        try {
+            const snap = await getDoc(doc(db, 'ryprotocol', key));
+            if (snap.exists()) {
+                const val = JSON.parse(snap.data().value);
+                _cache[key] = val;
+                lsSet(key, val);
+                return val;
+            }
+        } catch (e) {
+            console.warn('Firebase read error:', e);
+        }
+        return local;
+    }
 
-// ─── HYDRATION TRACKER ────────────────────────────────────────────
-function getHydrationKey() {
-    return 'hydration_' + new Date().toISOString().split('T')[0];
-}
-async function getHydration() { return (await sGet(getHydrationKey())) || 0; }
+    // ── Tab navigation ────────────────────────────────────────────
+    function showTab(t, e) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(b  => b.classList.remove('active'));
+        document.getElementById(t).classList.add('active');
+        if (e) e.target.classList.add('active');
 
-async function addWater(cups) {
-    let current = await getHydration();
-    current = Math.max(0, Math.min(16, current + cups));
-    await sSet(getHydrationKey(), current);
-    renderHydration();
-}
-window.addWater = addWater;
+        if (t === 'tracker')   { renderBWChart(); renderBWHistory(); renderBWStats(); }
+        if (t === 'exlog')     { renderExerciseHistory(); renderPRFeed(); }
+        if (t === 'myweights') { renderMyWeights(); }
+        if (t === 'nutrition') { renderHydration(); }
+        if (t === 'photos')    { renderPhotoHistory(); }
+    }
 
-async function renderHydration() {
-    const cups = await getHydration();
-    document.getElementById('hydrationCount').textContent = cups;
-    document.getElementById('hydrationFill').style.width = Math.min(100, (cups/16)*100) + '%';
-    const msg = document.getElementById('hydrationMsg');
-    if (cups >= 16) msg.textContent = '✓ Goal hit. Gallon done.';
-    else if (cups >= 12) msg.textContent = '3/4 there — keep going.';
-    else if (cups >= 8) msg.textContent = 'Halfway. Push through.';
-    else msg.textContent = '';
-}
+    function showDay(d, e) {
+        document.querySelectorAll('.workout').forEach(w => w.classList.remove('active'));
+        document.querySelectorAll('.day-btn').forEach(b  => b.classList.remove('active'));
+        document.getElementById(d).classList.add('active');
+        if (e) e.target.classList.add('active');
+    }
 
-// ─── PR FEED ──────────────────────────────────────────────────────
-const ALL_EXERCISES = [
-    'Hip Thrusts','Bulgarian Split Squats','Sumo Goblet Squats','Cable Kickbacks',
-    'Lying Leg Curls','Abductor Machine','Standing Calf Raises','Pallof Press',
-    'Romanian Deadlifts','Front/Goblet Squats','Walking Lunges','Single-Leg RDLs',
-    'Leg Press','Leg Curls','Seated Calf Raises','Hanging Knee Raises',
-    'Overhead Press','Incline DB Press','Pull-Ups','Cable Rows','Single-Arm Rows',
-    'Lateral Raises','Face Pulls','Reverse Flyes','Bicep Curls','Tricep Pushdowns','Shrugs'
-];
+    function showMealWeek(num, btn) {
+        document.querySelectorAll('.meal-week').forEach(w => w.classList.remove('active'));
+        document.querySelectorAll('.week-tab').forEach(b  => b.classList.remove('active'));
+        document.getElementById('meal-week-' + num).classList.add('active');
+        btn.classList.add('active');
+    }
 
-async function renderPRFeed() {
-    const log = await getEx();
-    const prs = [];
-    ALL_EXERCISES.forEach(ex => {
-        const entries = log[ex] || [];
-        if (!entries.length) return;
-        const maxEntry = entries.reduce((best, e) => e.weight > best.weight ? e : best, entries[0]);
-        prs.push({ ex, weight: maxEntry.weight, sr: maxEntry.sr, date: maxEntry.date });
-    });
-    prs.sort((a, b) => b.date.localeCompare(a.date));
-    const c = document.getElementById('prFeed');
-    if (!prs.length) { c.innerHTML = '<div class="empty-state">No PRs yet. Start logging to build your record.</div>'; return; }
-    c.innerHTML = prs.map(p =>
-        `<div class="log-entry">
-            <span class="entry-date" style="min-width:80px;">${p.ex}</span>
-            <span class="entry-val">${p.weight} lbs${p.sr ? ' <span style="color:#A07850;font-weight:400;">@ '+p.sr+'</span>' : ''} <span class="pr-badge">PR</span></span>
-            <span style="color:#A07850; font-size:12px;">${fmtDate(p.date)}</span>
-        </div>`
-    ).join('');
-}
+    function toggleMealDay(header) {
+        const body  = header.nextElementSibling;
+        const arrow = header.querySelector('span');
+        const isOpen = body.classList.contains('open');
+        body.classList.toggle('open', !isOpen);
+        arrow.textContent = isOpen ? '▾' : '▴';
+    }
 
-// ─── PROGRESS PHOTOS ──────────────────────────────────────────────
-async function getPhotos() { return (await sGet('photoLog')) || []; }
+    window.showTab       = showTab;
+    window.showDay       = showDay;
+    window.showMealWeek  = showMealWeek;
+    window.toggleMealDay = toggleMealDay;
 
-async function logPhoto() {
-    const date = document.getElementById('photoDate').value;
-    const note = document.getElementById('photoNote').value.trim();
-    const file = document.getElementById('photoFile').files[0];
-    if (!date) return alert('Select a date first.');
-    
-    const checks = [1,2,3,4,5,6].map(i => document.getElementById('chk'+i).checked);
-    const checkCount = checks.filter(Boolean).length;
+    // ── Cycle tracker ─────────────────────────────────────────────
+    const WEEKS = [
+        { label: 'Accumulation Week 1', type: 'accumulation' },
+        { label: 'Accumulation Week 2', type: 'accumulation' },
+        { label: 'Accumulation Week 3', type: 'accumulation' },
+        { label: 'Deload Week',          type: 'deload'       },
+    ];
 
-    let photoData = null;
-    if (file) {
-        photoData = await new Promise((res) => {
-            const reader = new FileReader();
-            reader.onload = e => res(e.target.result);
-            reader.readAsDataURL(file);
+    async function getCycle() {
+        return (await sGet('cycle')) || { w: 0 };
+    }
+
+    async function renderCycle() {
+        const { w } = await getCycle();
+        const week  = WEEKS[w];
+
+        const display = document.getElementById('cycleWeekDisplay');
+        display.textContent = week.label;
+        display.className   = 'cycle-week-display ' + week.type;
+
+        const pipsEl = document.getElementById('cyclePips');
+        pipsEl.innerHTML = '';
+        WEEKS.forEach((wk, i) => {
+            const pip = document.createElement('div');
+            pip.className   = 'pip ' + (wk.type === 'deload' ? 'dl' : 'acc') + (i === w ? ' current' : '');
+            pip.textContent = wk.type === 'deload' ? 'DL' : (i + 1);
+            pip.onclick     = () => setCycleWeek(i);
+            pipsEl.appendChild(pip);
         });
     }
 
-    const photos = await getPhotos();
-    photos.unshift({ date, note, checks, checkCount, photoData });
-    await sSet('photoLog', photos);
+    async function setCycleWeek(i) {
+        await sSet('cycle', { w: i });
+        renderCycle();
+    }
 
-    // Reset form
-    document.getElementById('photoNote').value = '';
-    document.getElementById('photoFile').value = '';
-    [1,2,3,4,5,6].forEach(i => document.getElementById('chk'+i).checked = false);
-    renderPhotoHistory();
-}
-window.logPhoto = logPhoto;
+    async function changeCycleWeek(dir) {
+        const { w } = await getCycle();
+        await setCycleWeek((w + dir + WEEKS.length) % WEEKS.length);
+    }
 
-async function deletePhoto(index) {
-    const photos = await getPhotos();
-    photos.splice(index, 1);
-    await sSet('photoLog', photos);
-    renderPhotoHistory();
-}
-window.deletePhoto = deletePhoto;
+    window.changeCycleWeek = changeCycleWeek;
 
-async function renderPhotoHistory() {
-    const photos = await getPhotos();
-    const c = document.getElementById('photoHistory');
-    if (!photos.length) { c.innerHTML = '<div class="empty-state">No photo sessions logged yet.</div>'; return; }
-    c.innerHTML = photos.map((p, i) => `
-        <div style="background:#FAF5EE; border-radius:10px; padding:16px; margin:10px 0; border-left:4px solid #D4B896;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                <span style="font-weight:700; color:#5C3D2E;">${fmtDate(p.date)}</span>
-                <span style="font-size:12px; color:#A07850;">${p.checkCount}/6 conditions ✓</span>
-                <button class="entry-del" onclick="deletePhoto(${i})">×</button>
+    // ── Bodyweight tracker ────────────────────────────────────────
+    async function getBWLog() {
+        return (await sGet('bwlog')) || [];
+    }
+
+    async function logBodyweight() {
+        const date = document.getElementById('bwDate').value;
+        const val  = parseFloat(document.getElementById('bwValue').value);
+        if (!date || isNaN(val)) { alert('Enter both date and weight.'); return; }
+
+        const log = await getBWLog();
+        log.push({ date, val });
+        log.sort((a, b) => a.date.localeCompare(b.date));
+        await sSet('bwlog', log);
+
+        document.getElementById('bwValue').value = '';
+        renderBWChart();
+        renderBWHistory();
+        renderBWStats();
+    }
+
+    async function deleteBW(i) {
+        const log = await getBWLog();
+        log.splice(i, 1);
+        await sSet('bwlog', log);
+        renderBWChart();
+        renderBWHistory();
+        renderBWStats();
+    }
+
+    window.logBodyweight = logBodyweight;
+    window.deleteBW      = deleteBW;
+
+    async function renderBWStats() {
+        const log = await getBWLog();
+        if (!log.length) return;
+
+        const vals    = log.map(e => e.val);
+        const current = vals[vals.length - 1];
+        const start   = vals[0];
+        const change  = current - start;
+        const low     = Math.min(...vals);
+
+        document.getElementById('bwCurrent').textContent = current.toFixed(1) + ' lbs';
+        document.getElementById('bwStart').textContent   = start.toFixed(1)   + ' lbs';
+        document.getElementById('bwLow').textContent     = low.toFixed(1)     + ' lbs';
+
+        const chEl = document.getElementById('bwChange');
+        chEl.textContent = (change >= 0 ? '+' : '') + change.toFixed(1) + ' lbs';
+        chEl.className   = 'sval ' + (change <= 0 ? 'down' : 'up');
+    }
+
+    async function renderBWHistory() {
+        const log = await getBWLog();
+        const el  = document.getElementById('bwHistory');
+
+        if (!log.length) {
+            el.innerHTML = '<div class="empty-state">No entries yet. Log your first weight above.</div>';
+            return;
+        }
+
+        const recent = [...log].reverse().slice(0, 10);
+        el.innerHTML  = recent.map((e, i) =>
+            `<div class="log-entry">
+                <span class="entry-date">${e.date}</span>
+                <span class="entry-val">${e.val} lbs</span>
+                <button class="entry-del" onclick="deleteBW(${log.length - 1 - i})">×</button>
+            </div>`
+        ).join('');
+    }
+
+    let bwChartInstance = null;
+
+    async function renderBWChart() {
+        const log    = await getBWLog();
+        const canvas = document.getElementById('bwChart');
+        const ctx    = canvas.getContext('2d');
+
+        if (bwChartInstance) { bwChartInstance = null; }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (log.length < 2) return;
+
+        const labels = log.map(e => e.date.slice(5));
+        const data   = log.map(e => e.val);
+        drawLineChart(ctx, canvas, labels, data, '#C9A882', Math.min(...data) - 3, Math.max(...data) + 3);
+    }
+
+    // ── Exercise log ──────────────────────────────────────────────
+    async function getExLog() {
+        return (await sGet('exlog')) || {};
+    }
+
+    async function logExercise() {
+        const ex       = document.getElementById('exerciseSelect').value;
+        const date     = document.getElementById('exDate').value;
+        const weight   = parseFloat(document.getElementById('exWeight').value);
+        const setsreps = document.getElementById('exSetsReps').value.trim();
+
+        if (!date || isNaN(weight)) { alert('Enter date and weight.'); return; }
+
+        const log = await getExLog();
+        if (!log[ex]) log[ex] = [];
+        log[ex].push({ date, weight, setsreps });
+        log[ex].sort((a, b) => a.date.localeCompare(b.date));
+        await sSet('exlog', log);
+
+        document.getElementById('exWeight').value   = '';
+        document.getElementById('exSetsReps').value = '';
+        renderExerciseHistory();
+        renderPRFeed();
+        renderMyWeights();
+    }
+
+    async function deleteEx(ex, i) {
+        const log = await getExLog();
+        if (!log[ex]) return;
+        log[ex].splice(i, 1);
+        await sSet('exlog', log);
+        renderExerciseHistory();
+        renderPRFeed();
+        renderMyWeights();
+    }
+
+    window.logExercise = logExercise;
+    window.deleteEx    = deleteEx;
+
+    async function renderExerciseHistory() {
+        const ex      = document.getElementById('exerciseSelect').value;
+        const log     = await getExLog();
+        const entries = log[ex] || [];
+        const histEl  = document.getElementById('exHistory');
+        const canvas  = document.getElementById('exChart');
+        const ctx     = canvas.getContext('2d');
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (!entries.length) {
+            histEl.innerHTML = '<div class="empty-state">No entries for this exercise yet.</div>';
+            return;
+        }
+
+        if (entries.length >= 2) {
+            const labels = entries.map(e => e.date.slice(5));
+            const data   = entries.map(e => e.weight);
+            drawLineChart(ctx, canvas, labels, data, '#8B6B4A', Math.min(...data) - 10, Math.max(...data) + 10);
+        }
+
+        const pr     = Math.max(...entries.map(e => e.weight));
+        const recent = [...entries].reverse().slice(0, 8);
+
+        histEl.innerHTML = recent.map((e, i) => {
+            const isPR = e.weight === pr;
+            return `<div class="log-entry">
+                <span class="entry-date">${e.date}</span>
+                <span class="entry-val">
+                    ${e.weight} lbs ${e.setsreps ? '· ' + e.setsreps : ''}
+                    ${isPR ? '<span class="pr-badge">PR</span>' : ''}
+                </span>
+                <button class="entry-del" onclick="deleteEx('${ex}', ${entries.length - 1 - i})">×</button>
+            </div>`;
+        }).join('');
+    }
+
+    async function renderPRFeed() {
+        const log = await getExLog();
+        const el  = document.getElementById('prFeed');
+
+        const all = Object.entries(log)
+            .filter(([, entries]) => entries.length > 0)
+            .map(([ex, entries]) => ({
+                ex,
+                pr:   Math.max(...entries.map(e => e.weight)),
+                date: entries.reduce((best, e) => e.weight >= best.weight ? e : best).date
+            }))
+            .sort((a, b) => b.pr - a.pr);
+
+        if (!all.length) {
+            el.innerHTML = '<div class="empty-state">Log exercises to see PRs here.</div>';
+            return;
+        }
+
+        el.innerHTML = all.map(({ ex, pr, date }) =>
+            `<div class="log-entry">
+                <span class="entry-date">${date.slice(5)}</span>
+                <span class="entry-val">${ex}</span>
+                <span style="font-weight:800; color:#8B6B4A; min-width:80px; text-align:right;">
+                    ${pr} lbs <span class="pr-badge">PR</span>
+                </span>
+            </div>`
+        ).join('');
+    }
+
+    // ── My Weights tab ────────────────────────────────────────────
+    const MW_GROUPS = {
+        'mw-lower-mon': [
+            'Hip Thrusts', 'Bulgarian Split Squats', 'Sumo Goblet Squats',
+            'Cable Kickbacks', 'Lying Leg Curls', 'Abductor Machine',
+            'Standing Calf Raises', 'Pallof Press'
+        ],
+        'mw-lower-thu': [
+            'Romanian Deadlifts', 'Front/Goblet Squats', 'Walking Lunges',
+            'Leg Press', 'Leg Curls', 'Seated Calf Raises', 'Hanging Knee Raises'
+        ],
+        'mw-upper': [
+            'Overhead Press', 'Incline DB Press', 'Pull-Ups', 'Cable Rows',
+            'Single-Arm Rows', 'Lateral Raises', 'Face Pulls', 'Reverse Flyes',
+            'Bicep Curls', 'Tricep Pushdowns', 'Shrugs'
+        ]
+    };
+
+    async function renderMyWeights() {
+        const log = await getExLog();
+
+        for (const [gridId, exercises] of Object.entries(MW_GROUPS)) {
+            const grid = document.getElementById(gridId);
+            if (!grid) continue;
+
+            grid.innerHTML = exercises.map(ex => {
+                const entries = log[ex] || [];
+                if (!entries.length) {
+                    return `<div class="mw-card no-data">
+                        <div class="mw-name">${ex}</div>
+                        <div class="mw-weight empty">Not logged</div>
+                    </div>`;
+                }
+                const last = entries[entries.length - 1];
+                const pr   = Math.max(...entries.map(e => e.weight));
+                const isPR = last.weight === pr;
+                return `<div class="mw-card">
+                    <div class="mw-name">${ex}</div>
+                    <div class="mw-weight">
+                        ${last.weight} lbs${isPR ? ' <span class="pr-badge">PR</span>' : ''}
+                    </div>
+                    <div class="mw-meta">
+                        ${last.setsreps ? last.setsreps + ' · ' : ''}${last.date}
+                    </div>
+                </div>`;
+            }).join('');
+        }
+    }
+
+    // ── Hydration tracker ─────────────────────────────────────────
+    function todayKey() {
+        return 'hydration_' + new Date().toISOString().slice(0, 10);
+    }
+
+    async function getWater() {
+        return (await sGet(todayKey())) || 0;
+    }
+
+    async function addWater(cups) {
+        let current = await getWater();
+        current = Math.max(0, Math.min(16, current + cups));
+        await sSet(todayKey(), current);
+        renderHydration(current);
+    }
+
+    async function renderHydration(count) {
+        if (count === undefined) count = await getWater();
+        const pct = (count / 16) * 100;
+
+        document.getElementById('hydrationCount').textContent = count;
+        document.getElementById('hydrationFill').style.width  = pct + '%';
+
+        const msg = document.getElementById('hydrationMsg');
+        if      (count >= 16) { msg.textContent = '✓ Goal reached! Full gallon logged.'; msg.style.color = '#6B8F3E'; }
+        else if (count >= 12) { msg.textContent = `${16 - count} cups to go — you're close!`; msg.style.color = '#A07850'; }
+        else if (count >= 8)  { msg.textContent = `${16 - count} cups remaining. Keep going.`; msg.style.color = '#A07850'; }
+        else if (count > 0)   { msg.textContent = `${16 - count} cups to go. Stay on it.`; msg.style.color = '#C9A882'; }
+        else                  { msg.textContent = 'Tap to start logging your water.'; msg.style.color = '#a0aec0'; }
+    }
+
+    window.addWater = addWater;
+
+    // ── Photo log ─────────────────────────────────────────────────
+    async function getPhotos() {
+        return (await sGet('photos')) || [];
+    }
+
+    async function logPhoto() {
+        const date = document.getElementById('photoDate').value;
+        const note = document.getElementById('photoNote').value.trim();
+        const file = document.getElementById('photoFile').files[0];
+
+        if (!date) { alert('Please select a date.'); return; }
+
+        const checks = [];
+        for (let i = 1; i <= 6; i++) {
+            if (document.getElementById('chk' + i).checked) checks.push(i);
+        }
+
+        let photoData = null;
+        if (file) {
+            photoData = await new Promise((resolve, reject) => {
+                const reader  = new FileReader();
+                reader.onload = e => resolve(e.target.result);
+                reader.onerror = () => reject(new Error('Failed to read file'));
+                reader.readAsDataURL(file);
+            });
+        }
+
+        const photos = await getPhotos();
+        photos.push({ date, note, checks, photoData });
+        photos.sort((a, b) => b.date.localeCompare(a.date));
+        await sSet('photos', photos);
+
+        document.getElementById('photoNote').value = '';
+        document.getElementById('photoFile').value = '';
+        for (let i = 1; i <= 6; i++) document.getElementById('chk' + i).checked = false;
+        renderPhotoHistory();
+    }
+
+    async function deletePhoto(i) {
+        const photos = await getPhotos();
+        photos.splice(i, 1);
+        await sSet('photos', photos);
+        renderPhotoHistory();
+    }
+
+    window.logPhoto    = logPhoto;
+    window.deletePhoto = deletePhoto;
+
+    async function renderPhotoHistory() {
+        const photos = await getPhotos();
+        const el     = document.getElementById('photoHistory');
+
+        if (!photos.length) {
+            el.innerHTML = '<div class="empty-state">No photo sessions logged yet.</div>';
+            return;
+        }
+
+        const CHECKLIST_LABELS = [
+            'Same time of day', 'Same lighting', 'Same outfit',
+            'Same poses', 'Same distance', 'Relaxed + flexed'
+        ];
+
+        el.innerHTML = photos.map((p, i) => `
+            <div class="exercise" style="margin:12px 0;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <strong style="color:#5C3D2E;">${p.date}</strong>
+                    <button class="entry-del" onclick="deletePhoto(${i})">×</button>
+                </div>
+                ${p.note ? `<div style="font-size:13px; color:#4a5568; margin-bottom:8px;">${p.note}</div>` : ''}
+                ${p.checks && p.checks.length
+                    ? `<div style="font-size:12px; color:#6B8F3E; margin-bottom:8px;">
+                        ✓ ${p.checks.map(c => CHECKLIST_LABELS[c - 1]).join(' · ')}
+                       </div>`
+                    : ''}
+                ${p.photoData
+                    ? `<img src="${p.photoData}" style="max-width:100%; border-radius:8px; max-height:300px; object-fit:cover;" />`
+                    : '<div style="font-size:12px; color:#a0aec0; font-style:italic;">No image uploaded.</div>'}
             </div>
-            ${p.photoData ? `<img src="${p.photoData}" style="width:100%; max-height:280px; object-fit:cover; border-radius:8px; margin-bottom:8px;">` : ''}
-            ${p.note ? `<div style="font-size:13px; color:#7A5C3A;">${p.note}</div>` : ''}
-        </div>
-    `).join('');
-}
+        `).join('');
+    }
 
-function fmtDate(d) {
-    const [y,m,day] = d.split('-');
-    return m+'/'+day+'/'+y.slice(2);
-}
+    // ── Chart drawing utility (no external library) ───────────────
+    function drawLineChart(ctx, canvas, labels, data, color, yMin, yMax) {
+        const W = canvas.offsetWidth || 600;
+        const H = canvas.offsetHeight || 130;
+        canvas.width  = W;
+        canvas.height = H;
 
-// ─── INIT ─────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', async () => {
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('bwDate').value = today;
-    document.getElementById('exDate').value = today;
-    await renderCycle();
-    await renderBWStats();
-    await renderBWHistory();
-    await renderBWChart();
-    await renderExerciseHistory();
-    await renderHydration();
-    await renderPRFeed();
-    await renderPhotoHistory();
-});
+        const padL  = 48, padR = 20, padT = 16, padB = 36;
+        const plotW = W - padL - padR;
+        const plotH = H - padT - padB;
+        const range = yMax - yMin || 1;
+        const n     = data.length;
+
+        const xPos = i   => padL + (i / (n - 1)) * plotW;
+        const yPos = val => padT + (1 - (val - yMin) / range) * plotH;
+
+        ctx.clearRect(0, 0, W, H);
+
+        // Grid lines + y-axis labels
+        ctx.strokeStyle = '#F0E8DC';
+        ctx.lineWidth   = 1;
+        for (let t = 0; t <= 4; t++) {
+            const y = padT + (t / 4) * plotH;
+            ctx.beginPath();
+            ctx.moveTo(padL, y);
+            ctx.lineTo(W - padR, y);
+            ctx.stroke();
+
+            ctx.fillStyle = '#a0aec0';
+            ctx.font      = '10px system-ui';
+            ctx.textAlign = 'right';
+            ctx.fillText((yMax - (t / 4) * range).toFixed(0), padL - 5, y + 4);
+        }
+
+        // Area fill gradient
+        const grad = ctx.createLinearGradient(0, padT, 0, H - padB);
+        grad.addColorStop(0, color + '40');
+        grad.addColorStop(1, color + '05');
+
+        ctx.beginPath();
+        ctx.moveTo(xPos(0), yPos(data[0]));
+        for (let i = 1; i < n; i++) ctx.lineTo(xPos(i), yPos(data[i]));
+        ctx.lineTo(xPos(n - 1), H - padB);
+        ctx.lineTo(xPos(0),     H - padB);
+        ctx.closePath();
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        // Line
+        ctx.strokeStyle = color;
+        ctx.lineWidth   = 2.5;
+        ctx.lineJoin    = 'round';
+        ctx.beginPath();
+        ctx.moveTo(xPos(0), yPos(data[0]));
+        for (let i = 1; i < n; i++) ctx.lineTo(xPos(i), yPos(data[i]));
+        ctx.stroke();
+
+        // Dots + x-axis labels
+        const showAll = n <= 12;
+        for (let i = 0; i < n; i++) {
+            if (!showAll && i !== 0 && i !== n - 1) continue;
+
+            ctx.beginPath();
+            ctx.arc(xPos(i), yPos(data[i]), 4, 0, Math.PI * 2);
+            ctx.fillStyle   = color;
+            ctx.fill();
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth   = 1.5;
+            ctx.stroke();
+
+            if (i === 0 || i === n - 1 || n <= 7) {
+                ctx.fillStyle = '#718096';
+                ctx.font      = '10px system-ui';
+                ctx.textAlign = 'center';
+                ctx.fillText(labels[i], xPos(i), H - padB + 14);
+            }
+        }
+    }
+
+    // ── Date defaults ─────────────────────────────────────────────
+    function setDateDefaults() {
+        const today = new Date().toISOString().slice(0, 10);
+        ['bwDate', 'exDate', 'photoDate'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = today;
+        });
+    }
+
+    // ── Init ──────────────────────────────────────────────────────
+    async function init() {
+        setDateDefaults();
+        await renderCycle();
+        await renderHydration();
+        // Pre-warm caches so tab switching is instant
+        await Promise.all([getExLog(), getBWLog(), getPhotos()]);
+    }
+
+    init();
+
 </script>
 
 </body>
